@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+.verticalspace {
+  height: 3em;
+}
+
+.table tbody > tr > td.vertalign {
+  vertical-align: middle;
+}

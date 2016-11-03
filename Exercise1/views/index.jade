@@ -1,5 +1,22 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container
+      h1.page-header Training Program!
+      p.lead Your training programs are listed below:
+      table.table
+        thead
+          tr
+            th.col-md-3 Name
+            th.col-md-6 Link
+        tbody
+          tr
+            td.vertalign SQUATS
+            td
+              a.btn.btn-primary(href="/GAATILPROGRAM/") Go to SQUATS
+          tr
+            td.vertalign BENCH
+            td
+              a.btn.btn-primary(href="/GAATILPROGRAM/") Go to BENCH
+      .verticalspace
+      a.btn.btn-primary(href="/NYTPROGRAM") Add new training program
