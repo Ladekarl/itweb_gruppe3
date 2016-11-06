@@ -9,7 +9,8 @@ require('./models/db');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var exercises = require('./routes/exercises');
-var newExercise = require('./routes/newexercise');
+var newExercise = require('./routes/newExercise');
+var newTrainingProgram = require('./routes/newTrainingProgram');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/exercises',exercises);
 app.use('/newexercise', newExercise);
+app.use('/newtrainingProgram', newTrainingProgram);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

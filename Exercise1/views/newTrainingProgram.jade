@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  .container
+    h1.page-header New training program
+    form(name='add-trainingprogram', method='post')
+      .form-group
+        label.control-label Name:
+        input(type='text', id='Name', placeholder='Enter name of training program').form-control
+      button.btn.btn-primary(type='submit') Add training program
