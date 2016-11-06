@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  .container
+    h1.page-header Exercises
+    table.table.table-bordered
+      thead
+        tr
+          th.col-md-3 Exercise
+          th.col-md-6 Description
+          th.col-md-1 Set
+          th.col-md-2 Repetitions/Time
+      tbody
+        tr
+          td Bench
+          td Do it right
+          td 3
+          td 30 sec
+    .verticalspace
+    a.btn.btn-primary(href="/newexercise") New exercise
