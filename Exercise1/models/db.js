@@ -36,6 +36,26 @@ gracefulShutdown = function (msg, callback) {
     callback();
   });
 };
+
+var Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId;
+
+var exerciseSchema = new Schema({
+    exerciseId: ObjectId,
+    name: String,
+    description: String,
+    setCount: Number,
+    time: String
+});
+
+var Exercise = mongoose.model("Exercise",exerciseSchema);
+
+var programSchema = mongoose.Schema({
+    exerciseList : [{type : ObjectId, ref: 'Exercise'}]
+});
+
+var Program = mongoose.model("Program",programSchema);
+
 // For nodemon restarts
 process.once('SIGUSR2', function () {
   gracefulShutdown('nodemon restart', function () {
@@ -54,3 +74,8 @@ process.on('SIGTERM', function() {
     process.exit(0);
   });
 });
+
+module.exports = {
+extercise: Exercise,
+program: Program
+};
