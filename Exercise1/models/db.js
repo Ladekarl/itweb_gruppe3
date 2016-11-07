@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
-var readLine = require ("readline");
+var readLine = require("readline");
 
-if (process.platform === "win32"){
-  var rl = readLine.createInterface ({
+if (process.platform === "win32") {
+  var rl = readLine.createInterface({
     input: process.stdin,
     output: process.stdout
   });
-  rl.on ("SIGINT", function (){
-    process.emit ("SIGINT");
+  rl.on("SIGINT", function () {
+    process.emit("SIGINT");
   });
 }
 
@@ -24,7 +24,7 @@ mongoose.connect(dbURI);
 mongoose.connection.on('connected', function () {
   console.log('Mongoose connected to ' + dbURI);
 });
-mongoose.connection.on('error',function (err) {
+mongoose.connection.on('error', function (err) {
   console.log('Mongoose connection error: ' + err);
 });
 mongoose.connection.on('disconnected', function () {
@@ -38,23 +38,27 @@ gracefulShutdown = function (msg, callback) {
 };
 
 var Schema = mongoose.Schema,
-    ObjectId = Schema.ObjectId;
+  ObjectId = Schema.ObjectId;
 
 var exerciseSchema = new Schema({
-    exerciseId: ObjectId,
-    name: String,
-    description: String,
-    setCount: Number,
-    time: String
+  name: String,
+  description: String,
+  setCount: Number,
+  time: String
 });
 
-var Exercise = mongoose.model("Exercise",exerciseSchema);
+var Exercise = mongoose.model("Exercise", exerciseSchema);
 
 var programSchema = mongoose.Schema({
-    exerciseList : [{type : ObjectId, ref: 'Exercise'}]
+  name: String,
+  completed: {type: Boolean, default: false},
+  exerciseList: [{
+    type: ObjectId,
+    ref: 'Exercise'
+  }]
 });
 
-var Program = mongoose.model("Program",programSchema);
+var Program = mongoose.model("Program", programSchema);
 
 // For nodemon restarts
 process.once('SIGUSR2', function () {
@@ -63,19 +67,19 @@ process.once('SIGUSR2', function () {
   });
 });
 // For app termination
-process.on('SIGINT', function() {
+process.on('SIGINT', function () {
   gracefulShutdown('app termination', function () {
     process.exit(0);
   });
 });
 // For Heroku app termination
-process.on('SIGTERM', function() {
+process.on('SIGTERM', function () {
   gracefulShutdown('Heroku app shutdown', function () {
     process.exit(0);
   });
 });
 
 module.exports = {
-extercise: Exercise,
-program: Program
+  exercise: Exercise,
+  program: Program
 };

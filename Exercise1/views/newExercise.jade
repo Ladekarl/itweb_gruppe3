@@ -3,7 +3,7 @@ extends layout
 block content
   .container
     h1.page-header New Exercise
-    form(method='post', action='/exercises/new')
+    form(method='post', action='/exercises/new/' + name)
       .form-group
         label.control-label Exercise:
         input(type='text', name='exercise', placeholder='Enter name of exercise').form-control
@@ -12,7 +12,7 @@ block content
         input(type='text', name='description', placeholder='Describe the exercise').form-control
       .form-group
         label.control-label Set:
-        input(type='text', name='set', placeholder='How many sets?').form-control
+        input(type='number', name='setCount', placeholder='How many sets?').form-control
       .form-group
         label.control-label Repetitions/Time:
         input(type='text', name='repetition', placeholder='How many repetitions/time?').form-control

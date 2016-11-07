@@ -11,10 +11,11 @@ block content
           th.col-md-1 Set
           th.col-md-2 Repetitions/Time
       tbody
-        tr
-          td Bench
-          td Do it right
-          td 3
-          td 30 sec
+        each exercise in exerciseList
+          tr
+            td #{exercise.name}
+            td #{exercise.description}
+            td #{exercise.setCount}
+            td #{exercise.time}
     .verticalspace
-    a.btn.btn-primary(href="/exercises/new") New exercise
+    a.btn.btn-primary(href="/exercises/new/" + name) New exercise

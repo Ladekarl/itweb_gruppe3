@@ -9,7 +9,6 @@ require('./models/db');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var exercises = require('./routes/exercises');
-var newExercise = require('./routes/newExercise');
 var newTrainingProgram = require('./routes/newTrainingProgram');
 
 var app = express();
@@ -28,7 +27,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/exercises', exercises);
-app.use('/exercises/new', newExercise);
 app.use('/trainingProgram/new', newTrainingProgram);
 app.use('/users', users);
 
