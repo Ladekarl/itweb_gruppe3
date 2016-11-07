@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  .container
+    h1.page-header New Exercise
+    form(name='add-exercise', method='post')
+      .form-group
+        label.control-label Exercise:
+        input(type='text', id='exercise', placeholder='Enter name of exercise').form-control
+      .form-group
+        label.control-label Description:
+        input(type='text', id='description', placeholder='Describe the exercise').form-control
+      .form-group
+        label.control-label Set:
+        input(type='text', id='set', placeholder='How many sets?').form-control
+      .form-group
+        label.control-label Repetitions/Time:
+        input(type='text', id='repetition', placeholder='How many repetitions/time?').form-control
+      button.btn.btn-primary(type='submit') Add exercise
