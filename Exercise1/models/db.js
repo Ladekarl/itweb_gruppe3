@@ -18,7 +18,7 @@ var gracefulShutdown = function (msg, callback) {
   });
 };
 
-var dbURI = 'mongodb://user:Password1@ds021036.mlab.com:21036/heroku_fxpd37fr';
+var dbURI = 'mongodb://heroku_fxpd37fr:elsqhjvv8gtrt5f4bl0blre72d@ds021036.mlab.com:21036/heroku_fxpd37fr';
 
 mongoose.connect(dbURI);
 mongoose.connection.on('connected', function () {
