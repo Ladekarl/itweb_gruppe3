@@ -2,7 +2,7 @@ extends layout
 
 block content
   .container
-      h1.page-header Training Program!
+      h1.page-header #{title}
       p.lead Your training programs are listed below:
       table.table
         thead
@@ -19,4 +19,4 @@ block content
             td
               a.btn.btn-primary(href="/GAATILPROGRAM/") Go to BENCH
       .verticalspace
-      a.btn.btn-primary(href="/NYTPROGRAM") Add new training program
+      a.btn.btn-primary(href="/trainingProgram/new") Add new training program

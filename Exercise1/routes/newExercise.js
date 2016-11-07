@@ -6,4 +6,9 @@ router.get('/', function(req, res, next) {
   res.render('newExercise', {});
 });
 
+router.post('/', function(req, res) {
+  console.log(req.body);
+  res.render('exercises');
+});
+
 module.exports = router;
