@@ -11,7 +11,11 @@ router.post('/', function(req, res) {
   var program = new db.program;
   program.name = req.body.name;
   program.save();
-  res.render('exercises');
+  db.program.find({}, function(err, programs) {
+    programs.push(program);
+    res.render('index', {trainingPrograms: programs});
+  });
+
 });
 
 module.exports = router;

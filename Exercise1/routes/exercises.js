@@ -11,7 +11,7 @@ router.get('/:name', function (req, res) {
 
 router.get('/new/:name', function (req, res) {
   var programName = req.params.name;
-  console.log("programName: " + programName);
+  console.log("Exercises.get programName: " + programName);
   db.program.find({name: programName}, function (err, programs) {
     res.render('newExercise', programs[0]);
   });

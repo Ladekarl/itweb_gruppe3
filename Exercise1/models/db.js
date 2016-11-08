@@ -52,10 +52,9 @@ var Exercise = mongoose.model("Exercise", exerciseSchema);
 var programSchema = mongoose.Schema({
   name: String,
   completed: {type: Boolean, default: false},
-  exerciseList: [{
-    type: ObjectId,
-    ref: 'Exercise'
-  }]
+  exerciseList: {
+    type: [exerciseSchema]
+  }
 });
 
 var Program = mongoose.model("Program", programSchema);
