@@ -7,9 +7,8 @@ var bodyParser = require('body-parser');
 require('./models/db');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 var exercises = require('./routes/exercises');
-var newTrainingProgram = require('./routes/newTrainingProgram');
+var programs = require('./routes/programs');
 
 var app = express();
 
@@ -27,8 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/exercises', exercises);
-app.use('/trainingProgram/new', newTrainingProgram);
-app.use('/users', users);
+app.use('/trainingProgram/new', programs);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -38,7 +36,7 @@ app.use(function (req, res, next) {
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

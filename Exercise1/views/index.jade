@@ -17,6 +17,6 @@ block content
             td
               a.btn.btn-primary(href="/exercises/" + trainingProgram.name) Go to #{trainingProgram.name}
             td
-              input(type="checkbox")
+              input(type="checkbox", id="completedCheckbox" name="completed", checked=(trainingProgram.completed))
     .verticalspace
     a.btn.btn-primary(href="/trainingProgram/new") Add new training program

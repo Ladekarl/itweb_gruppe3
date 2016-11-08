@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var db = require('../models/db');
-var mongoose = require('mongoose');
+
 router.get('/:name', function (req, res) {
   var programName = req.params.name;
   db.program.find({name: programName}, function (err, programs) {
