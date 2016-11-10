@@ -4,6 +4,6 @@ var ctrlTrainingPrograms = require('../controllers/trainingPrograms');
 
 router.get('/trainingPrograms', ctrlTrainingPrograms.trainingProgramsByUser);
 router.post('/trainingPrograms/:name', ctrlTrainingPrograms.postTrainingProgramsByUser);
-router.patch('/trainingPrograms/:id', ctrlTrainingPrograms.putTrainingProgramsByUser);
+router.patch('/trainingPrograms/:id', ctrlTrainingPrograms.patchTrainingProgramsByUser);
 
 module.exports = router;

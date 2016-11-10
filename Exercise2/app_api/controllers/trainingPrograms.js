@@ -29,7 +29,7 @@ module.exports.postTrainingProgramsByUser = function (req, res) {
   });
 };
 
-module.exports.putTrainingProgramsByUser = function (req, res) {
+module.exports.patchTrainingProgramsByUser = function (req, res) {
   var reqParams = req.body;
   var id = req.params.id;
 
