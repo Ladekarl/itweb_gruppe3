@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/exercises', exercises);
+app.use('/:id/exercises', exercises);
 app.use('/trainingProgram/new', programs);
 app.use('/api', api);
 

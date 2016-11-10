@@ -2,10 +2,10 @@ var express = require('express');
 var db = require("../../app_api/models/db.js");
 var router = express.Router();
 
-router.get('/:name', function (req, res) {
-  var programName = req.params.name;
-  db.program.find({name: programName}, function (err, programs) {
-    res.render('exercises', programs[0]);
+router.get('/', function (req, res) {
+  var id = req.params.id;
+  db.program.findById(id, function (err, program) {
+    res.render('exercises', program[0]);
   });
 });
 
