@@ -1,6 +1,6 @@
 var express = require('express');
+var db = require("../../app_api/models/db.js");
 var router = express.Router();
-var db = require('../app_api/models/db');
 
 router.get('/', function(req, res) {
   res.render('newTrainingProgram', {});
