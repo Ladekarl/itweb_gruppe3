@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  .container
+    h1.page-header Exercises
+    table.table.table-bordered
+      thead
+        tr
+          th.col-md-3 Exercise
+          th.col-md-6 Description
+          th.col-md-1 Set
+          th.col-md-2 Repetitions/Time
+      tbody
+        each exercise in exerciseList
+          tr
+            td #{exercise.name}
+            td #{exercise.description}
+            td #{exercise.setCount}
+            td #{exercise.time}
+    .verticalspace
+    a.btn.btn-primary(href="/exercises/new/" + name) New exercise
