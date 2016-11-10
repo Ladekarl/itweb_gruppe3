@@ -3,7 +3,7 @@ extends layout
 block content
   .container
     h1.page-header Exercises
-    a.btn.btn-primary(href="/trainingPrograms/new/" + _id + "/true") Completed
+    a.btn.btn-primary(href="/trainingPrograms/" + _id + "/true") Complete
     .verticalspace
     table.table.table-bordered
       thead
@@ -20,4 +20,4 @@ block content
             td #{exercise.setCount}
             td #{exercise.time}
     .verticalspace
-    a.btn.btn-primary(href="/exercises/new/" + name) New exercise
+    a.btn.btn-primary(href= "/" + _id + "/exercises/new") New exercise
