@@ -31,7 +31,7 @@ router.post('/', function(req, res) {
   });
 });
 
-router.post('/:name/:completed', function (req, res) {
+router.post('/:id/:completed', function (req, res) {
   var requestOptions = {
     url : "http://localhost:3000/api/trainingPrograms",
     method : "PUT",

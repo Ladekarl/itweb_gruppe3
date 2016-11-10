@@ -9,14 +9,11 @@ block content
         tr
           th.col-md-3 Name
           th.col-md-8 Link
-          th.col-md-1 Completed
       tbody
         - each trainingProgram in trainingPrograms
           tr
             td.vertalign #{trainingProgram.name}
             td
               a.btn.btn-primary(href="/exercises/" + trainingProgram.name) Go to #{trainingProgram.name}
-            td
-              input.completed-checkbox(type="checkbox", name="completed", checked=(trainingProgram.completed))
     .verticalspace
     a.btn.btn-primary(href="/trainingProgram/new") Add new training program
