@@ -18,7 +18,7 @@ var gracefulShutdown = function (msg, callback) {
   });
 };
 
-var dbURI = 'mongodb://heroku_fxpd37fr:elsqhjvv8gtrt5f4bl0blre72d@ds021036.mlab.com:21036/heroku_fxpd37fr';
+var dbURI = 'mongodb://heroku_bzksc7xz:fgn6uvlitt4ub0klapt60s6rq2@ds147497.mlab.com:47497/heroku_bzksc7xz';
 
 mongoose.connect(dbURI);
 mongoose.connection.on('connected', function () {
