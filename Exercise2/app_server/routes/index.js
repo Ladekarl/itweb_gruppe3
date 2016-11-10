@@ -9,7 +9,6 @@ var requestOptions = {
   json : {}
 };
 
-
 /* GET home page. */
 router.get('/', function (req, res) {
   request(requestOptions, function(err, response, body) {
@@ -20,7 +19,7 @@ router.get('/', function (req, res) {
     } else {
       console.log(response.statusCode);
     }
-  })
+  });
 });
 
 module.exports = router;

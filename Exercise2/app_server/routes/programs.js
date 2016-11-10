@@ -1,22 +1,43 @@
 var express = require('express');
 var db = require("../../app_api/models/db.js");
 var router = express.Router();
+var request = require('request');
+
+var requestOptions = {
+  url : "http://localhost:3000/api/trainingPrograms",
+  method : "POST",
+  json : {}
+};
 
 router.get('/', function(req, res) {
   res.render('newTrainingProgram', {});
 });
 
 router.post('/', function(req, res) {
-  var program = new db.program;
-  program.name = req.body.name;
-  program.save();
-  db.program.find({}, function(err, programs) {
-    programs.push(program);
-    res.render('index', {trainingPrograms: programs});
+  var requestOptions = {
+    url : "http://localhost:3000/api/trainingPrograms/" + req.body.name,
+    method : "POST",
+    json : {}
+  };
+
+  request(requestOptions, function(err, response) {
+    if (err) {
+      console.log(err);
+    } else if (response.statusCode === 201) {
+      res.redirect("/");
+    } else {
+      console.log(response.statusCode);
+    }
   });
 });
 
 router.post('/:name/:completed', function (req, res) {
+  var requestOptions = {
+    url : "http://localhost:3000/api/trainingPrograms",
+    method : "PUT",
+    json : {}
+  };
+
   var programName = req.params.name;
   var programCompleted = req.params.completed;
 
