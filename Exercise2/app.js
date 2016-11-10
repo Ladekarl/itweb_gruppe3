@@ -9,11 +9,12 @@ require('./app_api/models/db');
 var index = require('./app_server/routes/index');
 var exercises = require('./app_server/routes/exercises');
 var programs = require('./app_server/routes/programs');
+var api = require('./app_api/routes/index');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app_server/views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/exercises', exercises);
 app.use('/trainingProgram/new', programs);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
