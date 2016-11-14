@@ -1,11 +1,25 @@
 var express = require('express');
-var db = require("../../app_api/models/db.js");
 var router = express.Router();
+var request = require('request');
+var db = require("../../app_api/models/db.js");
+
+var requestOptionsGet = {
+  url : "http://localhost:3000/api/exercises",
+  method : "GET",
+  json : {}
+};
 
 router.get('/:name', function (req, res) {
-  var programName = req.params.name;
-  db.program.find({name: programName}, function (err, programs) {
-    res.render('exercises', programs[0]);
+  var options = requestOptionsGet;
+  options.url += '/' + req.params.name;
+  request(options, function (err, response, body) {
+    if (err) {
+      console.log(err);
+    } else if (response.statusCode === 200) {
+      res.render('exercises', {exerciseList: body});
+    } else {
+      console.log(response.statusCode);
+    }
   });
 });
 

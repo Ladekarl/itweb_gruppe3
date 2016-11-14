@@ -9,7 +9,6 @@ var requestOptions = {
   json : {}
 };
 
-
 /* GET home page. */
 router.get('/', function (req, res) {
   request(requestOptions, function(err, response, body) {

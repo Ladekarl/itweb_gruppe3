@@ -1,14 +1,31 @@
 var db = require('../models/db');
 var mongoose = require('mongoose');
 
-module.exports.exerciseReadByName = function (req,res) {
+module.exports.exerciseReadById = function (req,res) {
   db.exercise
-    .find({name: req.params.name})
+    .findById((req.params._id))
     .exec(function (err, exercise) {
       if (!exercise) {
         sendJsonResponse(res, 404, {"message": "exercise not found"});
+        return;
       }else if(err){
         sendJsonResponse(res,500,err);
+        return;
+      }
+      sendJsonResponse(res,200,exercise);
+    });
+};
+
+module.exports.exerciseReadByProgram = function (req,res) {
+  db.exercise
+    .findById((req.params.program))
+    .exec(function (err, exercise) {
+      if (!exercise) {
+        sendJsonResponse(res, 404, {"message": "exercise not found"});
+        return;
+      }else if(err){
+        sendJsonResponse(res,500,err);
+        return;
       }
       sendJsonResponse(res,200,exercise);
     });
