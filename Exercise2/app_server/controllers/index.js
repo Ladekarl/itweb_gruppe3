@@ -1,13 +1,13 @@
 var request = require('request');
 
 var requestOptions = {
-  url : "http://localhost:3000/api/trainingPrograms",
-  method : "GET",
-  json : {}
+  url: "http://localhost:3000/api/trainingPrograms",
+  method: "GET",
+  json: {}
 };
 
 module.exports.getIndex = function (req, res) {
-  request(requestOptions, function(err, response, body) {
+  request(requestOptions, function (err, response, body) {
     if (err) {
       console.log(err);
     } else if (response.statusCode === 200) {

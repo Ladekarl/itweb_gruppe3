@@ -2,6 +2,7 @@ var express = require('express');
 var indexController = require("../controllers/index.js");
 var exercisesController = require("../controllers/exercises");
 var programsController = require("../controllers/programs");
+var accountController = require("../controllers/account");
 var router = express.Router();
 
 // index
@@ -17,5 +18,8 @@ router.get('/trainingPrograms/new', programsController.getNewTrainingProgramView
 router.post('/trainingPrograms/new', programsController.postNewTrainingProgram);
 router.get('/trainingPrograms/:id/:completed', programsController.updateTrainingProgramCompleted);
 
+// account
+router.post('/login', accountController.postLogin);
+router.get('/login', accountController.getLoginPage);
 
 module.exports = router;

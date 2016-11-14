@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1.page-header Login
+  form(method='post', action='/login')
+    .form-group
+      label.control-label Username:
+      input(type='text', name='username', placeholder='Username').form-control
+    .form-group
+      label.control-label Password:
+      input(type='password', name='password', placeholder='Password').form-control
+    button.btn.btn-primary(type='submit') Login

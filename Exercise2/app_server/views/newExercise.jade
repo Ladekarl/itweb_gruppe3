@@ -1,19 +1,18 @@
 extends layout
 
 block content
-  .container
-    h1.page-header New Exercise
-    form(method='post', action='/' + _id + '/exercises/new')
-      .form-group
-        label.control-label Exercise:
-        input(type='text', name='name', placeholder='Enter name of exercise').form-control
-      .form-group
-        label.control-label Description:
-        input(type='text', name='description', placeholder='Describe the exercise').form-control
-      .form-group
-        label.control-label Set:
-        input(type='number', name='setCount', placeholder='How many sets?').form-control
-      .form-group
-        label.control-label Repetitions/Time:
-        input(type='text', name='time', placeholder='How many repetitions/time?').form-control
-      button.btn.btn-primary(type='submit') Add exercise
+  h1.page-header New Exercise
+  form(method='post', action='/' + _id + '/exercises/new')
+    .form-group
+      label.control-label Exercise:
+      input(type='text', name='name', placeholder='Enter name of exercise').form-control
+    .form-group
+      label.control-label Description:
+      input(type='text', name='description', placeholder='Describe the exercise').form-control
+    .form-group
+      label.control-label Set:
+      input(type='number', name='setCount', placeholder='How many sets?').form-control
+    .form-group
+      label.control-label Repetitions/Time:
+      input(type='text', name='time', placeholder='How many repetitions/time?').form-control
+    button.btn.btn-primary(type='submit') Add exercise

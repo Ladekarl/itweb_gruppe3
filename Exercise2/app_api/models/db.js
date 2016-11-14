@@ -19,6 +19,7 @@ var gracefulShutdown = function (msg, callback) {
 };
 
 var dbURI = 'mongodb://heroku_bzksc7xz:fgn6uvlitt4ub0klapt60s6rq2@ds147497.mlab.com:47497/heroku_bzksc7xz';
+var secret = 'thisIsOurSecret';
 
 mongoose.connect(dbURI);
 mongoose.connection.on('connected', function () {
@@ -59,6 +60,13 @@ var programSchema = mongoose.Schema({
 
 var Program = mongoose.model("Program", programSchema);
 
+var accountSchema = mongoose.Schema({
+  username: String,
+  password: String
+});
+
+var Account = mongoose.model("Account", accountSchema);
+
 // For nodemon restarts
 process.once('SIGUSR2', function () {
   gracefulShutdown('nodemon restart', function () {
@@ -80,5 +88,6 @@ process.on('SIGTERM', function () {
 
 module.exports = {
   exercise: Exercise,
-  program: Program
+  program: Program,
+  account: Account
 };
