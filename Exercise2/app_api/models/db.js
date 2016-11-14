@@ -41,7 +41,7 @@ gracefulShutdown = function (msg, callback) {
 var Schema = mongoose.Schema,
   ObjectId = Schema.ObjectId;
 
-var exerciseSchema = new Schema({
+var exerciseSchema = mongoose.Schema({
   name: String,
   description: String,
   setCount: Number,

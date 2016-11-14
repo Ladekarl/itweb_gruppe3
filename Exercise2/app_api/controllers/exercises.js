@@ -1,21 +1,6 @@
 var db = require('../models/db');
 var mongoose = require('mongoose');
 
-module.exports.exerciseReadById = function (req, res) {
-  db.exercise
-    .findById((req.params._id))
-    .exec(function (err, exercise) {
-      if (!exercise) {
-        sendJsonResponse(res, 404, {"message": "exercise not found"});
-        return;
-      } else if (err) {
-        sendJsonResponse(res, 500, err);
-        return;
-      }
-      sendJsonResponse(res, 200, exercise);
-    });
-};
-
 module.exports.getExercisesByProgram = function (req, res) {
   db.program
     .findById((req.params.id))
@@ -53,15 +38,35 @@ module.exports.postExercise = function (req, res) {
   });
 };
 
-module.exports.removeByName = function (req, res) {
+module.exports.updateExerciseById = function (req, res) {
+  db.program.find(exerciseList, function (err, trainingProgram) {
+    if (err) {
+      sendJsonResponse(res, 500, err);
+    } else {
+      trainingProgram.name = req.body.name;
+      trainingProgram.completed = req.body.completed;
+
+      trainingProgram.save(function (err) {
+        if (err) {
+          sendJsonResponse(res, 500, err);
+        } else {
+          sendJsonResponse(res, 200);
+        }
+      });
+    }
+  });
+};
+
+module.exports.deleteExerciseById = function (req, res) {
   db.exercise
-    .remove({name: req.params.name})
+    .findById(req.params.exerciseId)
+    .remove()
     .exec(function (err) {
       if (err) {
         sendJsonResponse(res, 500, err);
-        return;
+      } else {
+        sendJsonResponse(res, 204, {});
       }
-      sendJsonResponse(res, 204, {});
     });
 };
 
