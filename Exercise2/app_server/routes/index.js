@@ -1,25 +1,21 @@
 var express = require('express');
-var api = require("../../app_api/models/db.js");
+var indexController = require("../controllers/index.js");
+var exercisesController = require("../controllers/exercises");
+var programsController = require("../controllers/programs");
 var router = express.Router();
-var request = require('request');
 
-var requestOptions = {
-  url : "http://localhost:3000/api/trainingPrograms",
-  method : "GET",
-  json : {}
-};
+// index
+router.get('/', indexController.getIndex);
 
-/* GET home page. */
-router.get('/', function (req, res) {
-  request(requestOptions, function(err, response, body) {
-    if (err) {
-      console.log(err);
-    } else if (response.statusCode === 200) {
-      res.render('index', {trainingPrograms: body});
-    } else {
-      console.log(response.statusCode);
-    }
-  })
-});
+// exercises
+router.get('/:id/exercises', exercisesController.getExercisesView);
+router.get('/:id/exercises/new', exercisesController.getNewExerciseView);
+router.post('/:id/exercises/new', exercisesController.postExerciseByName);
+
+// training programs
+router.get('/trainingPrograms/new', programsController.getNewTrainingProgramView);
+router.post('/trainingPrograms/new', programsController.postNewTrainingProgram);
+router.get('/trainingPrograms/:id/:completed', programsController.updateTrainingProgramCompleted);
+
 
 module.exports = router;

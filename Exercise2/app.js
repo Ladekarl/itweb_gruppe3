@@ -6,29 +6,24 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 require('./app_api/models/db');
 
-var index = require('./app_server/routes/index');
-var exercises = require('./app_server/routes/exercises');
-var programs = require('./app_server/routes/programs');
-var api = require('./app_api/routes/index');
+var serverRoutes = require('./app_server/routes/index');
+var apiRoutes = require('./app_api/routes/index');
 
 var app = express();
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app_server/views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/exercises', exercises);
-app.use('/trainingProgram/new', programs);
-app.use('/api', api);
+app.use('/', serverRoutes);
+app.use('/api', apiRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

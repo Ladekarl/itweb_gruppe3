@@ -2,7 +2,7 @@ extends layout
 
 block content
   .container
-    h1.page-header #{title}
+    h1.page-header Training Program
     p.lead Your training programs are listed below:
     table.table
       thead
@@ -15,8 +15,8 @@ block content
           tr
             td.vertalign #{trainingProgram.name}
             td
-              a.btn.btn-primary(href="/exercises/" + trainingProgram.name) Go to #{trainingProgram.name}
+              a.btn.btn-primary(href=trainingProgram._id + "/exercises/") Go to #{trainingProgram.name}
             td
-              input.completed-checkbox(type="checkbox", name="completed", checked=(trainingProgram.completed))
+              input.completed-checkbox(type="checkbox", name="completed", checked=(trainingProgram.completed), disabled="disabled")
     .verticalspace
-    a.btn.btn-primary(href="/trainingProgram/new") Add new training program
+    a.btn.btn-primary(href="/trainingPrograms/new") Add new training program

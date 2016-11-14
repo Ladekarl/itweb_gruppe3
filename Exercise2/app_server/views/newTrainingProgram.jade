@@ -3,7 +3,7 @@ extends layout
 block content
   .container
     h1.page-header New training program
-    form(action='/trainingProgram/new/', method='post')
+    form(action='/trainingPrograms/new/', method='post')
       .form-group
         label.control-label Name:
         input(type='text', name='name', placeholder='Enter name of training program').form-control
