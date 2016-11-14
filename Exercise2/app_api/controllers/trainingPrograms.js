@@ -29,6 +29,35 @@ module.exports.postTrainingProgramsByUser = function (req, res) {
   });
 };
 
+module.exports.deleteTrainingProgramsByUser = function (req, res) {
+    db.program.findByIdAndRemove(req.params._id, function (err) {
+        if (err) {
+            sendJsonResponse(res, 500, err);
+        } else {
+            sendJsonResponse(res, 201);
+        }
+    });
+};
+
+module.exports.updateTrainingProgramsByUser = function (req, res) {
+    db.program.findById(req.params._id, function (err, trainingProgram) {
+        if (err) {
+            sendJsonResponse(res, 500, err);
+        } else {
+            trainingProgram.name = req.body.name;
+            trainingProgram.completed = req.body.completed;
+
+            trainingProgram.save(function (err) {
+                if (err) {
+                    sendJsonResponse(res, 500, err);
+                } else {
+                    sendJsonResponse(res, 200);
+                }
+            });
+        }
+    });
+};
+
 module.exports.patchTrainingProgramsByUser = function (req, res) {
   var reqParams = req.body;
   var id = req.params.id;
