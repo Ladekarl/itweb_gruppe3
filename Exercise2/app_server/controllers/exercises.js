@@ -12,7 +12,11 @@ module.exports.getExercisesView = function (req, res) {
     if (err) {
       console.log(err);
     } else if (response.statusCode === 200) {
-      res.render('exercises', {program: body});
+      var program = body;
+      if (!program.exerciseList) {
+        program.exerciseList = [];
+      }
+      res.render('exercises', program);
     } else {
       console.log(response.statusCode);
     }
@@ -28,15 +32,15 @@ module.exports.getNewExerciseView = function (req, res) {
 module.exports.postExerciseByName = function (req, res) {
   var requestOptions = {
     url: "http://localhost:3000/api/trainingPrograms/" + req.params.id + "/exercises",
-    method: "POST",
-    json: {}
+    json: {name: req.body.name, description: req.body.description, setCount: req.body.setCount, time: req.body.time},
+    method: "POST"
   };
 
   request(requestOptions, function (err, response) {
     if (err) {
       console.log(err);
     } else if (response.statusCode === 201) {
-      res.redirect("trainingPrograms/" + req.params.id + '/exercises');
+      res.redirect('/' + req.params.id + '/exercises');
     } else {
       console.log(response.statusCode);
     }

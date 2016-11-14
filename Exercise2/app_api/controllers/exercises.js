@@ -36,7 +36,11 @@ module.exports.postExercise = function (req, res) {
     if (err) {
       sendJsonResponse(res, 500, err);
     } else {
-      exercise = req.body;
+      var exercise = new db.exercise;
+      exercise.name = req.body.name;
+      exercise.description = req.body.description;
+      exercise.setCount = req.body.setCount;
+      exercise.time = req.body.time;
       program.exerciseList.push(exercise);
       program.save(function (err) {
         if (err) {
