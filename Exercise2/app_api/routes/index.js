@@ -5,13 +5,19 @@ var ctrlAccount = require('../controllers/account');
 
 var ctrlExercises = require('../controllers/exercises');
 
+// Training program routes
 router.get('/trainingPrograms', ctrlTrainingPrograms.trainingProgramsByUser);
 router.post('/trainingPrograms/:name', ctrlTrainingPrograms.postTrainingProgramsByUser);
 router.put('/trainingPrograms/:id', ctrlTrainingPrograms.updateTrainingProgramsByUser);
 router.delete('/trainingPrograms/:id', ctrlTrainingPrograms.deleteTrainingProgramsByUser);
 router.patch('/trainingPrograms/:id', ctrlTrainingPrograms.patchTrainingProgramsByUser);
+
+// Exercise routes
+router.get('/trainingPrograms/:id/exercises', ctrlExercises.getExercisesByProgram);
+router.post('/trainingPrograms/:id/exercises', ctrlExercises.postExercise);
+
+// Login routes
 router.post('/login', ctrlAccount.postLogin);
 
-router.get('/:id/exercises/', ctrlExercises.exerciseReadAll);
 
 module.exports = router;
