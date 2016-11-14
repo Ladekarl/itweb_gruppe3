@@ -55,10 +55,8 @@ module.exports.removeByName= function (req,res) {
         return;
       }
       sendJsonResponse(res,204,{});
-    })
-}
-
-
+    });
+};
 
 var sendJsonResponse = function(res,status,content){
   res.status(status);

@@ -30,7 +30,7 @@ module.exports.postTrainingProgramsByUser = function (req, res) {
 };
 
 module.exports.deleteTrainingProgramsByUser = function (req, res) {
-    db.program.findByIdAndRemove(req.params._id, function (err) {
+    db.program.findByIdAndRemove(req.params.id, function (err) {
         if (err) {
             sendJsonResponse(res, 500, err);
         } else {
@@ -40,7 +40,7 @@ module.exports.deleteTrainingProgramsByUser = function (req, res) {
 };
 
 module.exports.updateTrainingProgramsByUser = function (req, res) {
-    db.program.findById(req.params._id, function (err, trainingProgram) {
+    db.program.findById(req.params.id, function (err, trainingProgram) {
         if (err) {
             sendJsonResponse(res, 500, err);
         } else {
