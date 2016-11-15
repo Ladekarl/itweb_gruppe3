@@ -18,8 +18,9 @@ router.post('/trainingPrograms/:id/exercises', ctrlExercises.postExercise);
 router.delete('/trainingPrograms/:id/exercises/:exerciseId', ctrlExercises.deleteExerciseById);
 router.put('/trainingPrograms/:id/exercises/:exerciseId', ctrlExercises.updateExerciseById);
 
-// Login routes
-router.post('/login', ctrlAccount.postLogin);
+// Account routes
+router.post('/accounts/login', ctrlAccount.postLogin);
+router.post('/accounts/', ctrlAccount.postRegister);
 
 
 module.exports = router;

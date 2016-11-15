@@ -46,3 +46,7 @@ jspm_packages
 # workspace
 .idea
 .vscode
+
+# environment files
+*.env
+.env

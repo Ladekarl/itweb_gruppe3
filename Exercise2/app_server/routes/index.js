@@ -19,7 +19,9 @@ router.post('/trainingPrograms/new', programsController.postNewTrainingProgram);
 router.get('/trainingPrograms/:id/:completed', programsController.updateTrainingProgramCompleted);
 
 // account
-router.post('/login', accountController.postLogin);
 router.get('/login', accountController.getLoginPage);
+router.post('/login', accountController.postLogin);
+router.get('/register', accountController.getRegisterPage);
+router.post('/register', accountController.postRegister);
 
 module.exports = router;
