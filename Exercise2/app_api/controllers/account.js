@@ -13,7 +13,7 @@ var generateJwtToken = function (account) {
 
   return jwt.sign({
     _id: account._id,
-    username: account.username,
+    email: account.email,
     exp: parseInt(expiry.getTime() / 1000)
   }, process.env.JWT_SECRET);
 };
@@ -32,10 +32,10 @@ var validatePassword = function (account, password) {
 };
 
 module.exports.postLogin = function (req, res) {
-  var username = req.body.username;
+  var email = req.body.email;
   var password = req.body.password;
 
-  db.account.find({username: username})
+  db.account.find({email: email})
     .exec(function (err, accounts) {
       var account;
       if (err) {
@@ -65,7 +65,7 @@ module.exports.postRegister = function (req, res) {
   var account = new db.account;
   var password = req.body.password;
 
-  account.username = req.body.username;
+  account.email = req.body.email;
   account.salt = createSalt();
   account.hash = calcHash(password, account.salt);
 

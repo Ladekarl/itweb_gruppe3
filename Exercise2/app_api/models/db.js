@@ -60,7 +60,7 @@ var programSchema = mongoose.Schema({
 var Program = mongoose.model("Program", programSchema);
 
 var accountSchema = mongoose.Schema({
-  username: {
+  email: {
     type: String,
     unique: true,
     required: true

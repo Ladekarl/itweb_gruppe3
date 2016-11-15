@@ -5,11 +5,11 @@ module.exports.getLoginPage = function (req, res) {
 };
 
 module.exports.postLogin = function (req, res, next) {
-  var username = req.body.username;
+  var email = req.body.email;
   var password = req.body.password;
 
-  if (!username || !password) {
-    console.log('Invalid username or password');
+  if (!email || !password) {
+    console.log('Invalid email or password');
     res.render('login');
   }
 
@@ -17,7 +17,7 @@ module.exports.postLogin = function (req, res, next) {
     url: "http://localhost:3000/api/accounts/login",
     method: "POST",
     json: {
-      username: username,
+      email: email,
       password: password
     }
   };
@@ -40,11 +40,11 @@ module.exports.getRegisterPage = function (req, res) {
 };
 
 module.exports.postRegister = function (req, res) {
-  var username = req.body.username;
+  var email = req.body.email;
   var password = req.body.password;
 
-  if (!username || !password) {
-    console.log('Invalid username or password');
+  if (!email || !password) {
+    console.log('Invalid email or password');
     res.render('register');
   }
 
@@ -52,7 +52,7 @@ module.exports.postRegister = function (req, res) {
     url: "http://localhost:3000/api/accounts/",
     method: "POST",
     json: {
-      username: username,
+      email: email,
       password: password
     }
   };
