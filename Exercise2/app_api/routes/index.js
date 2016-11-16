@@ -16,7 +16,8 @@ router.patch('/trainingPrograms/:id', ctrlTrainingPrograms.patchTrainingPrograms
 router.get('/trainingPrograms/:id/exercises', ctrlExercises.getExercisesByProgram);
 router.post('/trainingPrograms/:id/exercises', ctrlExercises.postExercise);
 router.delete('/trainingPrograms/:id/exercises/:exerciseId', ctrlExercises.deleteExerciseById);
-router.put('/trainingPrograms/:id/exercises/:exerciseId', ctrlExercises.updateExerciseById);
+router.patch('/trainingPrograms/:id/exercises/:exerciseId', ctrlExercises.updateExerciseById);
+
 
 // Login routes
 router.post('/login', ctrlAccount.postLogin);

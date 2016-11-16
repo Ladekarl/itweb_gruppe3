@@ -16,6 +16,7 @@ module.exports.getExercisesByProgram = function (req, res) {
     });
 };
 
+
 module.exports.postExercise = function (req, res) {
   db.program.findById(req.params.id, function (err, program) {
     if (err) {
@@ -39,13 +40,19 @@ module.exports.postExercise = function (req, res) {
 };
 
 module.exports.updateExerciseById = function (req, res) {
-  db.program.find(exerciseList, function (err, trainingProgram) {
+  db.program.findById(req.params.id, function (err, trainingProgram) {
     if (err) {
       sendJsonResponse(res, 500, err);
     } else {
-      trainingProgram.name = req.body.name;
-      trainingProgram.completed = req.body.completed;
-
+        trainingProgram.exerciseList.forEach(function(exercise){
+          if (exercise._id == req.params.exerciseId){
+            exercise.name = req.body.name;
+            exercise.description = req.body.description;
+            exercise.setCount = req.body.setCount;
+            exercise.time = req.body.time;
+          }
+        })
+      }
       trainingProgram.save(function (err) {
         if (err) {
           sendJsonResponse(res, 500, err);
@@ -53,19 +60,27 @@ module.exports.updateExerciseById = function (req, res) {
           sendJsonResponse(res, 200);
         }
       });
-    }
   });
 };
 
 module.exports.deleteExerciseById = function (req, res) {
-  db.exercise
-    .findById(req.params.exerciseId)
-    .remove()
-    .exec(function (err) {
+  db.program
+    .findById(req.params.id)
+    .exec(function (err, trainingProgram) {
       if (err) {
         sendJsonResponse(res, 500, err);
-      } else {
+      } else if (!trainingProgram) {
         sendJsonResponse(res, 204, {});
+      } else {
+        trainingProgram.exerciseList.id(req.params.exerciseId).remove();
+        trainingProgram.save(function(err){
+          if (err){
+            sendJsonResponse(res, 500, err);
+          } else {
+            sendJsonResponse(res, 200, {})
+          }
+        });
+
       }
     });
 };
