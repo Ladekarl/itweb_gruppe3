@@ -1,4 +1,3 @@
-var db = require("../../app_api/models/db.js");
 var request = require('request');
 
 module.exports.getExercisesView = function (req, res) {
@@ -28,8 +27,25 @@ module.exports.getExercisesView = function (req, res) {
 };
 
 module.exports.getNewExerciseView = function (req, res) {
+  var requestOptions = {
+    url: process.env.BASE_URL + "/api/trainingPrograms/" + req.params.id + "/exercises",
+    method: "GET",
+    json: {},
+    headers: {
+      'x-access-token': req.headers['x-access-token']
+    }
+  };
+  request(requestOptions, function (err, response, body) {
+    if (err) {
+      console.log(err);
+    } else if (response.statusCode === 200) {
+      res.render('newExercise', body);
+    } else {
+      console.log(response.statusCode);
+    }
+  });
   db.program.findById(req.params.id, function (err, program) {
-    res.render('newExercise', program);
+
   });
 };
 
