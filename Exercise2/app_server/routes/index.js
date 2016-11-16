@@ -19,6 +19,9 @@ router.get('/logout', accountController.logout);
 router.get('/:id/exercises', exercisesController.getExercisesView);
 router.get('/:id/exercises/new', exercisesController.getNewExerciseView);
 router.post('/:id/exercises/new', exercisesController.postExerciseByName);
+router.post('/:id/exercises/update/:exerciseId',exercisesController.updateExerciseById);
+router.get('/:id/exercises/:exerciseId', exercisesController.getExerciseView);
+router.get('/:id/exercises/:exerciseId/remove',exercisesController.removeExerciseById);
 
 // training programs
 router.get('/trainingPrograms/new', programsController.getNewTrainingProgramView);

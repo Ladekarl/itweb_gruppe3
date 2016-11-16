@@ -11,6 +11,8 @@ block content
           th.col-md-6 Description
           th.col-md-1 Set
           th.col-md-2 Repetitions/Time
+          th.col-md-2 Edit
+          th.col-md-2 Delete
       tbody
         each exercise in exerciseList
           tr
@@ -18,5 +20,9 @@ block content
             td #{exercise.description}
             td #{exercise.setCount}
             td #{exercise.time}
+            td
+              a.btn.btn-primary(href= "/" + _id + "/exercises/" + exercise._id + "/",class = "glyphicon glyphicon-pencil")
+            td
+              a.btn.btn-primary(href= "/" + _id + "/exercises/" + exercise._id + "/remove", class = "glyphicon glyphicon-remove")
     .verticalspace
     a.btn.btn-primary(href= "/" + _id + "/exercises/new") New exercise

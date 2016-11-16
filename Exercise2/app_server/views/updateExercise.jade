@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1.page-header Exercise
+  form(method='post', action='/' + programId + '/exercises/update/' + oldExercise._id)
+    .form-group
+      label.control-label Exercise:
+      input(type='text', name='name',value=oldExercise.name).form-control
+    .form-group
+      label.control-label Description:
+      input(type='text', name='description', value=oldExercise.description).form-control
+    .form-group
+      label.control-label Set:
+      input(type='number', name='setCount', value=oldExercise.setCount).form-control
+    .form-group
+      label.control-label Repetitions/Time:
+      input(type='text', name='time',value = oldExercise.time).form-control
+    button.btn.btn-primary(type='submit') Change exercise
