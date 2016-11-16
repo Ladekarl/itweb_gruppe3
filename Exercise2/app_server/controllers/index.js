@@ -17,5 +17,6 @@ module.exports.getIndex = function (req, res) {
       res.render('index', {trainingPrograms: []});
       console.log(response.statusCode);
     }
+    console.log(res.locals.options);
   });
 };

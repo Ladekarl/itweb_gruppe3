@@ -24,16 +24,19 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', serverRoutes);
 app.use('/api', apiRoutes);
-
-app.use(function (req, res, next) {
-  var cookie = req.cookies.token;
-  if (!cookie) {
-    res.cookie('token', theJwtTokenValue, {maxAge: 900000, httpOnly: true});
+app.use(function(req, res, next) {
+  var token = req.cookies.token;
+  console.log(token);
+  if (token) {
+    req.headers['x-access-token'] = token;
+    app.locals.loggedIn = true;
+  } else {
+    app.locals.loggedIn = false;
   }
   next();
 });
+app.use('/', serverRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

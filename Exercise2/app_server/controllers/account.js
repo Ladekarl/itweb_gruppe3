@@ -71,6 +71,11 @@ module.exports.postRegister = function (req, res) {
   });
 };
 
+module.exports.logout = function (req, res) {
+  res.clearCookie('token');
+  res.redirect('/');
+};
+
 var setCookie = function (res, token) {
   var expiry = new Date();
   expiry.setDate(expiry.getDate() + 7);

@@ -11,7 +11,7 @@ router.post('/accounts/login', ctrlAccount.postLogin);
 router.post('/accounts/', ctrlAccount.postRegister);
 
 // Verify token
-router.use(auth);
+router.all('*', auth);
 
 // Training program routes
 router.get('/trainingPrograms', ctrlTrainingPrograms.trainingProgramsByUser);
