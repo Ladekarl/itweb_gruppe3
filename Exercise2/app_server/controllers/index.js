@@ -1,12 +1,15 @@
 var request = require('request');
 
 var requestOptions = {
-  url: "http://localhost:3000/api/trainingPrograms",
+  url: process.env.BASE_URL + "/api/trainingPrograms",
   method: "GET",
   json: {}
 };
 
 module.exports.getIndex = function (req, res) {
+  requestOptions.headers = {
+    'x-access-token': req.headers['x-access-token']
+  };
   request(requestOptions, function (err, response, body) {
     if (err) {
       console.log(err);

@@ -3,11 +3,13 @@ var request = require('request');
 
 module.exports.getExercisesView = function (req, res) {
   var requestOptions = {
-    url: "http://localhost:3000/api/trainingPrograms/" + req.params.id + "/exercises",
+    url: process.env.BASE_URL + "/api/trainingPrograms/" + req.params.id + "/exercises",
     method: "GET",
-    json: {}
+    json: {},
+    headers: {
+      'x-access-token': req.headers['x-access-token']
+    }
   };
-  requestOptions.headers = req.headers;
   request(requestOptions, function (err, response, body) {
     if (err) {
       res.render('exercises');
@@ -33,9 +35,12 @@ module.exports.getNewExerciseView = function (req, res) {
 
 module.exports.getExerciseView = function(req,res) {
   var requestOptions = {
-    url: "http://localhost:3000/api/trainingPrograms/" + req.params.id + "/exercises" ,
+    url: process.env.BASE_URL + "/api/trainingPrograms/" + req.params.id + "/exercises" ,
     method: "GET",
-    json: {}
+    json: {},
+    headers: {
+      'x-access-token': req.headers['x-access-token']
+    }
   };
   request(requestOptions, function (err, response, body) {
       if (err) {
@@ -55,9 +60,12 @@ module.exports.getExerciseView = function(req,res) {
 
 module.exports.updateExerciseById = function(req,res){
   var requestOptions = {
-    url: "http://localhost:3000/api/trainingPrograms/" + req.params.id + "/exercises/" + req.params.exerciseId,
+    url: process.env.BASE_URL + "/api/trainingPrograms/" + req.params.id + "/exercises/" + req.params.exerciseId,
     json: {name: req.body.name, description: req.body.description, setCount: req.body.setCount, time: req.body.time},
-    method: "PATCH"
+    method: "PATCH",
+    headers: {
+      'x-access-token': req.headers['x-access-token']
+    }
   };
   request(requestOptions, function (err, response) {
     if (err) {
@@ -72,9 +80,12 @@ module.exports.updateExerciseById = function(req,res){
 
 module.exports.removeExerciseById = function (req,res) {
   var requestOptions = {
-    url: "http://localhost:3000/api/trainingPrograms/" + req.params.id + "/exercises/" + req.params.exerciseId,
+    url: process.env.BASE_URL + "/api/trainingPrograms/" + req.params.id + "/exercises/" + req.params.exerciseId,
     json: {},
-    method: "DELETE"
+    method: "DELETE",
+    headers: {
+      'x-access-token': req.headers['x-access-token']
+    }
   };
   request(requestOptions, function (err, response) {
     if (err) {
@@ -89,11 +100,13 @@ module.exports.removeExerciseById = function (req,res) {
 
 module.exports.postExerciseByName = function (req, res) {
   var requestOptions = {
-    url: "http://localhost:3000/api/trainingPrograms/" + req.params.id + "/exercises",
+    url:process.env.BASE_URL + "/api/trainingPrograms/" + req.params.id + "/exercises",
     json: {name: req.body.name, description: req.body.description, setCount: req.body.setCount, time: req.body.time},
-    method: "POST"
+    method: "POST",
+    headers: {
+      'x-access-token': req.headers['x-access-token']
+    }
   };
-
   request(requestOptions, function (err, response) {
     if (err) {
       console.log(err);

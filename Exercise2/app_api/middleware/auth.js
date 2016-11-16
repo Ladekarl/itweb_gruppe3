@@ -3,7 +3,6 @@ module.exports = function (req, res, next) {
 
   // check header or url parameters or post parameters for token
   var token = req.header('x-access-token');
-  console.log('API ' + token);
   // decode token
   if (token) {
 

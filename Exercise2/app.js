@@ -25,9 +25,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', apiRoutes);
+
 app.use(function(req, res, next) {
   var token = req.cookies.token;
-  console.log(token);
   if (token) {
     req.headers['x-access-token'] = token;
     app.locals.loggedIn = true;
@@ -36,6 +36,7 @@ app.use(function(req, res, next) {
   }
   next();
 });
+
 app.use('/', serverRoutes);
 
 // catch 404 and forward to error handler

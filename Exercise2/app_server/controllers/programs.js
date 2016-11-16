@@ -6,11 +6,13 @@ module.exports.getNewTrainingProgramView = function (req, res) {
 
 module.exports.postNewTrainingProgram = function (req, res) {
   var requestOptions = {
-    url: "http://localhost:3000/api/trainingPrograms/" + req.body.name,
+    url: process.env.BASE_URL + "/api/trainingPrograms/" + req.body.name,
     method: "POST",
-    json: {}
+    json: {},
+    headers: {
+      'x-access-token': req.headers['x-access-token']
+    }
   };
-  requestOptions.headers = req.headers;
 
   request(requestOptions, function (err, response) {
     if (err) {
@@ -30,11 +32,13 @@ module.exports.updateTrainingProgramCompleted = function (req, res) {
   var programCompleted = req.params.completed;
 
   var requestOptions = {
-    url: "http://localhost:3000/api/trainingPrograms/" + programId,
+    url: process.env.BASE_URL + "/api/trainingPrograms/" + programId,
     method: "PATCH",
-    json: {completed: programCompleted}
+    json: {completed: programCompleted},
+    headers: {
+      'x-access-token': req.headers['x-access-token']
+    }
   };
-  requestOptions.headers = req.headers;
 
   request(requestOptions, function (err, response) {
     if (err) {

@@ -14,7 +14,7 @@ module.exports.postLogin = function (req, res) {
   }
 
   var requestOptions = {
-    url: "http://localhost:3000/api/accounts/login",
+    url: process.env.BASE_URL + "/api/accounts/login",
     method: "POST",
     json: {
       email: email,
@@ -50,7 +50,7 @@ module.exports.postRegister = function (req, res) {
   }
 
   var requestOptions = {
-    url: "http://localhost:3000/api/accounts/",
+    url: process.env.BASE_URL + "/api/accounts/",
     method: "POST",
     json: {
       email: email,
