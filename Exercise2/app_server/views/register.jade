@@ -2,12 +2,12 @@ extends layout
 
 block content
   .col-xs-4.col-xs-offset-4(align="center")
-    h1.page-header Login
-    form(method='post', action='/login')
+    h1.page-header Register
+    form(method='post', action='/register')
       .form-group
         label.control-label Email:
-        input(type='text', name='email', placeholder='Email', required="true").form-control
+        input(type='email', name='email', placeholder='Email', required="true").form-control
       .form-group
         label.control-label Password:
         input(type='password', name='password', placeholder='Password', required="true").form-control
-      button.btn.btn-primary(type='submit') Login
+      button.btn.btn-primary(type='submit') Register

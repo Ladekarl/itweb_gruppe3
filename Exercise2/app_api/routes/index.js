@@ -19,8 +19,9 @@ router.delete('/trainingPrograms/:id/exercises/:exerciseId', ctrlExercises.delet
 router.patch('/trainingPrograms/:id/exercises/:exerciseId', ctrlExercises.updateExerciseById);
 
 
-// Login routes
-router.post('/login', ctrlAccount.postLogin);
+// Account routes
+router.post('/accounts/login', ctrlAccount.postLogin);
+router.post('/accounts/', ctrlAccount.postRegister);
 
 
 module.exports = router;
