@@ -1,5 +1,4 @@
 var db = require('../models/db');
-var mongoose = require('mongoose');
 
 module.exports.getExercisesByProgram = function (req, res) {
   db.program

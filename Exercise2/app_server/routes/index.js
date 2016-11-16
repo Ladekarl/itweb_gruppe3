@@ -3,10 +3,19 @@ var indexController = require("../controllers/index.js");
 var exercisesController = require("../controllers/exercises");
 var programsController = require("../controllers/programs");
 var accountController = require("../controllers/account");
+var cookieParser = require("../middleware/cookieparser");
 var router = express.Router();
 
 // index
 router.get('/', indexController.getIndex);
+
+// account
+router.get('/login', accountController.getLoginPage);
+router.post('/login', accountController.postLogin);
+router.get('/register', accountController.getRegisterPage);
+router.post('/register', accountController.postRegister);
+
+router.use(cookieParser);
 
 // exercises
 router.get('/:id/exercises', exercisesController.getExercisesView);
@@ -17,11 +26,5 @@ router.post('/:id/exercises/new', exercisesController.postExerciseByName);
 router.get('/trainingPrograms/new', programsController.getNewTrainingProgramView);
 router.post('/trainingPrograms/new', programsController.postNewTrainingProgram);
 router.get('/trainingPrograms/:id/:completed', programsController.updateTrainingProgramCompleted);
-
-// account
-router.get('/login', accountController.getLoginPage);
-router.post('/login', accountController.postLogin);
-router.get('/register', accountController.getRegisterPage);
-router.post('/register', accountController.postRegister);
 
 module.exports = router;

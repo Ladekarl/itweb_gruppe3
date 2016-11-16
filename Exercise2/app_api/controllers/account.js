@@ -68,10 +68,11 @@ module.exports.postRegister = function (req, res) {
   account.email = req.body.email;
   account.salt = createSalt();
   account.hash = calcHash(password, account.salt);
+  account.programList = [];
 
   account.save(function (err) {
     if (err) {
-      sendJsonResponse(res, 500, err);
+      sendJsonResponse(res, 500,  err);
     } else {
       sendJsonResponse(res, 200, {
         "token": generateJwtToken(account)

@@ -10,13 +10,16 @@ module.exports.postNewTrainingProgram = function (req, res) {
     method: "POST",
     json: {}
   };
+  requestOptions.headers = req.headers;
 
   request(requestOptions, function (err, response) {
     if (err) {
+      res.render('newTrainingProgram');
       console.log(err);
     } else if (response.statusCode === 201) {
       res.redirect("/");
     } else {
+      res.render('newTrainingProgram');
       console.log(response.statusCode);
     }
   });
@@ -31,13 +34,16 @@ module.exports.updateTrainingProgramCompleted = function (req, res) {
     method: "PATCH",
     json: {completed: programCompleted}
   };
+  requestOptions.headers = req.headers;
 
   request(requestOptions, function (err, response) {
     if (err) {
+      res.render('exercises');
       console.log(err);
     } else if (response.statusCode === 200) {
       res.redirect("/");
     } else {
+      res.render('exercises');
       console.log(response.statusCode);
     }
   });

@@ -1,4 +1,4 @@
-var dotenv  = require('dotenv');
+var dotenv = require('dotenv');
 dotenv.load();
 var express = require('express');
 var path = require('path');
@@ -26,6 +26,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', serverRoutes);
 app.use('/api', apiRoutes);
+
+app.use(function (req, res, next) {
+  var cookie = req.cookies.token;
+  if (!cookie) {
+    res.cookie('token', theJwtTokenValue, {maxAge: 900000, httpOnly: true});
+  }
+  next();
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

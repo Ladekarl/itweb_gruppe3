@@ -10,9 +10,11 @@ module.exports.getIndex = function (req, res) {
   request(requestOptions, function (err, response, body) {
     if (err) {
       console.log(err);
+      res.render('index', {trainingPrograms: []});
     } else if (response.statusCode === 200) {
       res.render('index', {trainingPrograms: body});
     } else {
+      res.render('index', {trainingPrograms: []});
       console.log(response.statusCode);
     }
   });

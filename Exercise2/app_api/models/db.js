@@ -37,8 +37,24 @@ gracefulShutdown = function (msg, callback) {
   });
 };
 
-var Schema = mongoose.Schema,
-  ObjectId = Schema.ObjectId;
+// For nodemon restarts
+process.once('SIGUSR2', function () {
+  gracefulShutdown('nodemon restart', function () {
+    process.kill(process.pid, 'SIGUSR2');
+  });
+});
+// For app termination
+process.on('SIGINT', function () {
+  gracefulShutdown('app termination', function () {
+    process.exit(0);
+  });
+});
+// For Heroku app termination
+process.on('SIGTERM', function () {
+  gracefulShutdown('Heroku app shutdown', function () {
+    process.exit(0);
+  });
+});
 
 var exerciseSchema = mongoose.Schema({
   name: String,
@@ -66,29 +82,13 @@ var accountSchema = mongoose.Schema({
     required: true
   },
   hash: String,
-  salt: String
+  salt: String,
+  programList: {
+    type: [programSchema]
+  }
 });
 
 var Account = mongoose.model("Account", accountSchema);
-
-// For nodemon restarts
-process.once('SIGUSR2', function () {
-  gracefulShutdown('nodemon restart', function () {
-    process.kill(process.pid, 'SIGUSR2');
-  });
-});
-// For app termination
-process.on('SIGINT', function () {
-  gracefulShutdown('app termination', function () {
-    process.exit(0);
-  });
-});
-// For Heroku app termination
-process.on('SIGTERM', function () {
-  gracefulShutdown('Heroku app shutdown', function () {
-    process.exit(0);
-  });
-});
 
 module.exports = {
   exercise: Exercise,

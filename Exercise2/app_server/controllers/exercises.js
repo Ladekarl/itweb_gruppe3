@@ -7,9 +7,10 @@ module.exports.getExercisesView = function (req, res) {
     method: "GET",
     json: {}
   };
-
+  requestOptions.headers = req.headers;
   request(requestOptions, function (err, response, body) {
     if (err) {
+      res.render('exercises');
       console.log(err);
     } else if (response.statusCode === 200) {
       var program = body;
@@ -18,6 +19,7 @@ module.exports.getExercisesView = function (req, res) {
       }
       res.render('exercises', program);
     } else {
+      res.render('exercises');
       console.log(response.statusCode);
     }
   });
@@ -42,6 +44,7 @@ module.exports.postExerciseByName = function (req, res) {
     } else if (response.statusCode === 201) {
       res.redirect('/' + req.params.id + '/exercises');
     } else {
+      res.render('exercises');
       console.log(response.statusCode);
     }
   });

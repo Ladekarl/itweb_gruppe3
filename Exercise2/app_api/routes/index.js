@@ -1,9 +1,17 @@
 var express = require('express');
 var router = express.Router();
+
 var ctrlTrainingPrograms = require('../controllers/trainingPrograms');
 var ctrlAccount = require('../controllers/account');
-
 var ctrlExercises = require('../controllers/exercises');
+var auth = require('../middleware/auth');
+
+// Account routes
+router.post('/accounts/login', ctrlAccount.postLogin);
+router.post('/accounts/', ctrlAccount.postRegister);
+
+// Verify token
+router.use(auth);
 
 // Training program routes
 router.get('/trainingPrograms', ctrlTrainingPrograms.trainingProgramsByUser);
@@ -17,10 +25,5 @@ router.get('/trainingPrograms/:id/exercises', ctrlExercises.getExercisesByProgra
 router.post('/trainingPrograms/:id/exercises', ctrlExercises.postExercise);
 router.delete('/trainingPrograms/:id/exercises/:exerciseId', ctrlExercises.deleteExerciseById);
 router.put('/trainingPrograms/:id/exercises/:exerciseId', ctrlExercises.updateExerciseById);
-
-// Account routes
-router.post('/accounts/login', ctrlAccount.postLogin);
-router.post('/accounts/', ctrlAccount.postRegister);
-
 
 module.exports = router;
