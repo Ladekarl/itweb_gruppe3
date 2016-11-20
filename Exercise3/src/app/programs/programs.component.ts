@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Trainingprogram} from '../trainingprogram';
+import {ProgramsService} from './programs.service';
 
 @Component({
   selector: 'app-programs',
@@ -7,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProgramsComponent implements OnInit {
 
-  constructor() { }
+  private trainingPrograms: Trainingprogram[];
+
+  constructor(private programsService: ProgramsService) {
+  }
 
   ngOnInit() {
-
+    this.programsService.getPrograms()
+      .subscribe(
+        programs => this.trainingPrograms = programs,
+        error => alert(error));
   }
 
 }

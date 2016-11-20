@@ -1,3 +1,22 @@
-<p>
-  programs works!
-</p>
+<h1 class="page-header">Training Programs</h1>
+<p class="lead">Your training programs are listed below:</p>
+<table class="table">
+  <thead>
+  <tr>
+    <th class="col-md-3">Name</th>
+    <th class="col-md-8">Link</th>
+    <th class="col-md-1">Completed</th>
+  </tr>
+  </thead>
+  <tbody *ngFor="let program of trainingPrograms">
+  <td>{{program.name}}</td>
+  <td class="vertalign">
+    <button class="btn btn-primary">Go to {{program.name}}</button>
+  </td>
+  <td>
+    <input class="checkbox" type="checkbox" checked="program.completed" disabled>
+  </td>
+  </tbody>
+</table>
+<div class="verticalspace"></div>
+<button class="btn btn-primary">Add new training program</button>

@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {AuthenticateService} from './authenticate/authenticate.service';
 
 @Component({
   selector: 'app-root',
@@ -10,5 +11,7 @@ export class AppComponent {
   constructor() {
   }
 
-  title = 'app works!';
+  isLoggedIn() {
+    return AuthenticateService.isLoggedIn();
+  }
 }
