@@ -1,7 +1,7 @@
-import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {ExercisesService} from './exercises.service';
-import {Exercise} from '../exercise';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ExercisesService } from './exercises.service';
+import { Exercise } from '../exercise';
 
 @Component({
   selector: 'app-exercises',
@@ -11,20 +11,27 @@ import {Exercise} from '../exercise';
 export class ExercisesComponent implements OnInit {
 
   private exercises: Exercise[] = [];
+  private programId: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private exercisesService: ExercisesService,
-              private cd: ChangeDetectorRef) {
+    private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
     this.route.queryParams
       .subscribe((data: { id: string }) => {
-        this.exercisesService.getExercises(data.id).subscribe(
-          ex => {
-            this.exercises = ex;
-            this.cd.detectChanges();
-          },
-          error => alert(error));
+        this.programId = data.id;
       });
+
+    this.exercisesService.getExercises(this.programId)
+      .subscribe(ex => {
+        this.exercises = ex;
+        this.cd.detectChanges();
+      },
+      error => alert(error));
+  }
+
+  goToNewExercise() {
+    this.router.navigate(['newexercise'], { queryParams: {id: this.programId }});
   }
 }
