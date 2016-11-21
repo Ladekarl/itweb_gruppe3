@@ -38,7 +38,7 @@ export class ExercisesComponent implements OnInit {
   deleteExercise(exercise: Exercise) {
     this.exercisesService.deleteExercise(exercise, this.programId)
       .subscribe(res => {
-        //TODO: Do something
+        this.exercises.splice(this.exercises.indexOf(exercise));
       },
       error => alert(error));
   }
