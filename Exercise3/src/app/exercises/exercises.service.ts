@@ -49,4 +49,16 @@ export class ExercisesService {
       })
       .catch(ExercisesService.handleError);
   }
+
+  deleteExercise(exercise: Exercise, id: string) {
+    const url = `/api/trainingPrograms/${id}/exercises/${exercise._id}`;
+    let headers = new Headers({ 'x-access-token': AuthenticateService.getToken() });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.delete(url, options)
+      .map((res: Response) => {
+        return res;
+      })
+      .catch(ExercisesService.handleError);
+  }
 }

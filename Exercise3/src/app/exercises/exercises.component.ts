@@ -32,6 +32,14 @@ export class ExercisesComponent implements OnInit {
   }
 
   goToNewExercise() {
-    this.router.navigate(['newexercise'], { queryParams: {id: this.programId }});
+    this.router.navigate(['newexercise'], { queryParams: { id: this.programId } });
+  }
+
+  deleteExercise(exercise: Exercise) {
+    this.exercisesService.deleteExercise(exercise, this.programId)
+      .subscribe(res => {
+        //TODO: Do something
+      },
+      error => alert(error));
   }
 }
