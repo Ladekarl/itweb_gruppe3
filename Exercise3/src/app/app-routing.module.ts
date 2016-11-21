@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AuthenticateComponent} from './authenticate/authenticate.component';
 import {ProgramsComponent} from './programs/programs.component';
 import {AuthenticateGuard} from './authenticate/authenticate.guard';
+import {ExercisesComponent} from "./exercises/exercises.component";
 
 const appRoutes: Routes = [
   {path: '', component: ProgramsComponent, canActivate: [AuthenticateGuard]},
@@ -20,6 +21,7 @@ const appRoutes: Routes = [
     path: 'register', component: AuthenticateComponent,
     data: {login: false, register: true}
   },
+  {path: 'exercises', component: ExercisesComponent, canActivate: [AuthenticateGuard]},
   {path: '**', component: ProgramsComponent, canActivate: [AuthenticateGuard]},
 ];
 

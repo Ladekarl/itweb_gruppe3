@@ -11,7 +11,7 @@
   <tbody *ngFor="let program of trainingPrograms">
   <td>{{program.name}}</td>
   <td class="vertalign">
-    <button class="btn btn-primary">Go to {{program.name}}</button>
+    <button class="btn btn-primary" (click)="programClicked(program)">Go to {{program.name}}</button>
   </td>
   <td>
     <input class="checkbox" type="checkbox" checked="program.completed" disabled>

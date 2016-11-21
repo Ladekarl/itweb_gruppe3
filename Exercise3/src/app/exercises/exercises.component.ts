@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {ExercisesService} from './exercises.service';
+import {Exercise} from '../exercise';
 
 @Component({
   selector: 'app-exercises',
@@ -7,9 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExercisesComponent implements OnInit {
 
-  constructor() { }
+  private exercises: Exercise[] = [];
 
-  ngOnInit() {
+  constructor(private router: Router, private route: ActivatedRoute, private exercisesService: ExercisesService,
+              private cd: ChangeDetectorRef) {
   }
 
+  ngOnInit() {
+    this.route.queryParams
+      .subscribe((data: { id: string }) => {
+        this.exercisesService.getExercises(data.id).subscribe(
+          ex => {
+            this.exercises = ex;
+            this.cd.detectChanges();
+          },
+          error => alert(error));
+      });
+  }
 }

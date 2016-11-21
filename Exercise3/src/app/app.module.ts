@@ -11,6 +11,7 @@ import {AuthenticateComponent} from './authenticate/authenticate.component';
 import {AppRoutingModule} from './app-routing.module';
 import {AuthenticateGuard} from './authenticate/authenticate.guard';
 import {ProgramsService} from './programs/programs.service';
+import {ExercisesService} from './exercises/exercises.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {ProgramsService} from './programs/programs.service';
   providers: [
     AuthenticateService,
     AuthenticateGuard,
-    ProgramsService
+    ProgramsService,
+    ExercisesService
   ],
   bootstrap: [AppComponent]
 })
