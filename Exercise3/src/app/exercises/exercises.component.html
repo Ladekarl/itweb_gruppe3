@@ -1,14 +1,13 @@
 <h1 class="page-header">Exercises</h1>
-<button class="btn btn-primary verticalspace">Complete</button>
-<table class="table table-bordered verticalspace">
+<button class="btn btn-primary">Complete exercise</button>
+<table class="table table-bordered">
   <thead>
     <tr>
       <th class="col-md-3">Exercise</th>
       <th class="col-md-6">Description</th>
       <th class="col-md-1">Set</th>
       <th class="col-md-2">Repetitions/Time</th>
-      <th class="col-md-2">Edit</th>
-      <th class="col-md-2">Delete</th>
+      <th class="col-md-1">Delete</th>
     </tr>
   </thead>
   <tbody *ngFor="let exercise of exercises">
@@ -18,12 +17,9 @@
       <td>{{exercise.setCount}}</td>
       <td>{{exercise.time}}</td>
       <td>
-        <button class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
-      </td>
-      <td>
-        <button class="btn btn-primary" (click)="deleteExercise(exercise)"><span class="glyphicon glyphicon-remove"></span></button>
+        <button class="btn btn-danger" (click)="deleteExercise(exercise)"><span class="glyphicon glyphicon-remove"></span></button>
       </td>
     </tr>
   </tbody>
 </table>
-<button class="btn btn-primary verticalspace" (click)="goToNewExercise()">New Exercise</button>
+<button class="btn btn-primary" (click)="goToNewExercise()">New Exercise</button>
