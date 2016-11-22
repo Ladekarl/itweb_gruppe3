@@ -13,6 +13,7 @@ import { AuthenticateGuard } from './authenticate/authenticate.guard';
 import { ProgramsService } from './programs/programs.service';
 import { ExercisesService } from './exercises/exercises.service';
 import { NewExerciseComponent } from './new-exercise/new-exercise.component';
+import { NewProgramComponent } from './new-program/new-program.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { NewExerciseComponent } from './new-exercise/new-exercise.component';
     ProgramsComponent,
     ExercisesComponent,
     AuthenticateComponent,
-    NewExerciseComponent
+    NewExerciseComponent,
+    NewProgramComponent
   ],
   imports: [
     BrowserModule,

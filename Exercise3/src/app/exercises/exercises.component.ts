@@ -2,6 +2,9 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ExercisesService } from './exercises.service';
 import { Exercise } from '../exercise';
+import { Trainingprogram } from  '../trainingprogram'
+import { ProgramsService } from '../programs/programs.service'
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-exercises',
@@ -14,7 +17,7 @@ export class ExercisesComponent implements OnInit {
   private programId: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private exercisesService: ExercisesService,
-    private cd: ChangeDetectorRef) {
+    private cd: ChangeDetectorRef,private programsService: ProgramsService,private location: Location) {
   }
 
   ngOnInit() {
@@ -33,6 +36,13 @@ export class ExercisesComponent implements OnInit {
 
   goToNewExercise() {
     this.router.navigate(['newexercise'], { queryParams: { id: this.programId } });
+  }
+  onCompleted() {
+    this.programsService.updateProgramCompleted(this.programId,true)
+      .subscribe(
+        program => this.location.back(),
+        error => alert(error)
+      )
   }
 
   deleteExercise(exercise: Exercise) {

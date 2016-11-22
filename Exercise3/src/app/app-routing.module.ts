@@ -5,7 +5,7 @@ import { ProgramsComponent } from './programs/programs.component';
 import { AuthenticateGuard } from './authenticate/authenticate.guard';
 import { ExercisesComponent } from './exercises/exercises.component';
 import { NewExerciseComponent } from './new-exercise/new-exercise.component';
-
+import { NewProgramComponent} from './new-program/new-program.component'
 const appRoutes: Routes = [
   { path: '', component: ProgramsComponent, canActivate: [AuthenticateGuard] },
   {
@@ -30,6 +30,11 @@ const appRoutes: Routes = [
   {
     path: 'newexercise',
     component: NewExerciseComponent,
+    canActivate: [AuthenticateGuard]
+  },
+  {
+    path: 'newprogram',
+    component: NewProgramComponent,
     canActivate: [AuthenticateGuard]
   },
   {

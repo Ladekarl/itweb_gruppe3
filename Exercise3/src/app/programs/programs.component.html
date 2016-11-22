@@ -14,9 +14,9 @@
     <button class="btn btn-primary" (click)="programClicked(program)">Go to {{program.name}}</button>
   </td>
   <td>
-    <input class="checkbox" type="checkbox" checked="program.completed" disabled>
+    <input class="checkbox" type="checkbox" [(ngModel)]="program.completed" disabled>
   </td>
   </tbody>
 </table>
 <div class="verticalspace"></div>
-<button class="btn btn-primary">Add new training program</button>
+<button class="btn btn-primary" (click)="newProgramClicked()">Add new training program</button>
