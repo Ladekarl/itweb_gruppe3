@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Exercise4.Models
 {
     public class ESImage
