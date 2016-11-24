@@ -1,0 +1,7 @@
+.table tbody > tr > td.vertalign {
+    vertical-align: middle;
+}
+
+.btn-primary {
+    margin-bottom: 2em;
+}

@@ -1,3 +1,25 @@
-<p>
-  exercises works!
-</p>
+<h1 class="page-header">Exercises</h1>
+<button class="btn btn-primary" (click)="onCompleted()">Complete training program</button>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th class="col-md-3">Exercise</th>
+      <th class="col-md-6">Description</th>
+      <th class="col-md-1">Set</th>
+      <th class="col-md-2">Repetitions/Time</th>
+      <th class="col-md-1">Delete</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let exercise of exercises">
+    <tr>
+      <td>{{exercise.name}}</td>
+      <td>{{exercise.description}}</td>
+      <td>{{exercise.setCount}}</td>
+      <td>{{exercise.time}}</td>
+      <td>
+        <button class="btn btn-danger" (click)="deleteExercise(exercise)"><span class="glyphicon glyphicon-remove"></span></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button class="btn btn-primary" (click)="goToNewExercise()">New Exercise</button>

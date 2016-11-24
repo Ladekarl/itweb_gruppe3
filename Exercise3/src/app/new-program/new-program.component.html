@@ -1,0 +1,8 @@
+<h1 class="page-header">New Training program</h1>
+<form [formGroup]="programForm" (ngSubmit)="onSubmit(programForm.value)">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" formControlName="name">
+  </div>
+  <button type="submit" class="btn btn-primary">Add program</button>
+</form>
