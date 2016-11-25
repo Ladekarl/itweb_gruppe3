@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Products";
+}
+@Model IEnumerable<Exercise4.Models.Category>
+
+<h2>Products</h2>
+
+<div class="categories"> 
+    <div class="categories-title">
+        <h1> CATEGORIES </h1>
+        @foreach (var category in Model)
+        {
+            <li>@category.Name</li>
+        }
+    </div>
+</div>

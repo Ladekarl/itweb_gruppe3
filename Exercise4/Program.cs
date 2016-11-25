@@ -14,7 +14,7 @@ namespace Exercise4
         {
             var config = new ConfigurationBuilder()
                 .AddCommandLine(args)
-                .AddEnvironmentVariables(prefix: "ASPNETCORE_")
+                .AddEnvironmentVariables(prefix: "ASPNETCORE_ENVIRONMENT")
                 .Build();
 
             var host = new WebHostBuilder()
