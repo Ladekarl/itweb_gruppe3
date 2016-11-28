@@ -1,4 +1,14 @@
+@model Exercise4.ViewModels.CategoryViewModel
+
 @{
-    ViewData["Title"] = "Component categories";
+    ViewBag.Title = "Component categories";
 }
-<h1>@ViewData["Title"]</h1>
+<h1>@ViewBag.Title</h1>
+
+@foreach (var restaurant in Model.Categories)
+{
+    <p>restaurant.Name</p>
+}
+<div>
+    <a class="btn btn-primary" asp-action="Create">Create</a>
+</div>
