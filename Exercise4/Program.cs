@@ -14,10 +14,11 @@ namespace Exercise4
         {
             var config = new ConfigurationBuilder()
                 .AddCommandLine(args)
-                .AddEnvironmentVariables(prefix: "ASPNETCORE_")
+                .AddEnvironmentVariables(prefix: "ASPNETCORE_ENVIRONMENT")
                 .Build();
 
             var host = new WebHostBuilder()
+                .UseUrls("http://*:5000")
                 .UseConfiguration(config)
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
