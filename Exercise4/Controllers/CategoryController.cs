@@ -39,5 +39,35 @@ namespace Exercise4.Controllers
             }
             return View();
         }
+
+        [HttpGet("[controller]/Edit")]
+        public IActionResult Edit(int id)
+        {
+            var model = _categoryData.Get(id);
+            if (model == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
+
+        [HttpPost("[controller]/Edit")]
+        public IActionResult Edit(int id, CategoryEditViewModel model)
+        {
+            var category = _categoryData.Get(id);
+            if (ModelState.IsValid)
+            {
+                category.Name = model.Name;
+                _categoryData.Commit();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(category);
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            _categoryData.
+        }
     }
 }
