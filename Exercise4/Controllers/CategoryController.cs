@@ -64,10 +64,17 @@ namespace Exercise4.Controllers
             return View(category);
         }
 
-        [HttpDelete]
+        [HttpDelete("[controller]/Delete")]
         public IActionResult Delete(int id)
         {
-            _categoryData.
+            var category = _categoryData.Get(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            _categoryData.Remove(category);
+            _categoryData.Commit();
+            return new NoContentResult();
         }
     }
 }

@@ -10,6 +10,8 @@ namespace Exercise4.Services
         IEnumerable<Category> GetAll();
         Category Get(int id);
         Category Add(Category newCategory);
+
+        void Remove(Category Category);
         void Commit();
     }
 
@@ -40,6 +42,11 @@ namespace Exercise4.Services
         public IEnumerable<Category> GetAll()
         {
             return _context.Categories;
+        }
+
+        public void Remove(Category Category)
+        {
+            _context.Categories.Remove(Category);
         }
     }
 }
