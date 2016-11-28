@@ -6,11 +6,11 @@ namespace Exercise4.Models
     {
         public Category()
         {
-            ComponentTypes = new List<ComponentType>();
+            CategoryToComponentTypes = new List<CategoryToComponentType>();
         }
         public int CategoryId { get; set; }
         public string Name { get; set; }
-        public ICollection<ComponentType> ComponentTypes
+        public ICollection<CategoryToComponentType> CategoryToComponentTypes
         {
             get; protected set;
         }

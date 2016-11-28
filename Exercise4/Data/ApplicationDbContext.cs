@@ -15,6 +15,11 @@ namespace Exercise4.Data
         {
         }
 
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Component> Components { get; set; }
+        public DbSet<ComponentType> ComponentTypes { get; set; }
+        public DbSet<ESImage> EsImages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
