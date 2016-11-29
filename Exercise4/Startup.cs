@@ -46,6 +46,7 @@ namespace Exercise4
             services.AddMvc();
             
             services.AddScoped<ICategoryData, CategoryData>();
+            services.AddScoped<IComponentService, ComponentService>();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

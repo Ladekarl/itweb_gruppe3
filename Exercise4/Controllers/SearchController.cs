@@ -1,12 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Exercise4.Models;
+using Exercise4.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Exercise4.Controllers
 {
     public class SearchController : Controller
     {
+        private IComponentService _componentService;
+        public SearchController(IComponentService componentService)
+        {
+            _componentService = componentService;
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -14,13 +22,9 @@ namespace Exercise4.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index([FromFormAttribute] int componentNumber)
+        public IActionResult Index([FromForm] int componentNumber)
         {
-            var component = new Component();
-            component.ComponentNumber = componentNumber;
-            List<Component> componentList = new List<Component>();
-            componentList.Add(component);
-            return View("Index", componentList);
+            return View("Index", _componentService.GetAll().Where(c => c.ComponentNumber.Equals(componentNumber)));
         }
     }
 }
