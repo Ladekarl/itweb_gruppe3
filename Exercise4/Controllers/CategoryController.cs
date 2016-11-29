@@ -20,13 +20,13 @@ namespace Exercise4.Controllers
             return View(model);
         }
 
-        [HttpGet("[controller]/Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost("[controller]/Create")]
+        [HttpPostAttribute]
+        [ValidateAntiForgeryTokenAttribute]
         public IActionResult Create(CategoryEditViewModel model)
         {
             if (ModelState.IsValid)
@@ -40,7 +40,6 @@ namespace Exercise4.Controllers
             return View();
         }
 
-        [HttpGet("[controller]/Edit")]
         public IActionResult Edit(int id)
         {
             var model = _categoryData.Get(id);
@@ -51,7 +50,8 @@ namespace Exercise4.Controllers
             return View(model);
         }
 
-        [HttpPost("[controller]/Edit")]
+        [HttpPostAttribute]
+        [ValidateAntiForgeryTokenAttribute]
         public IActionResult Edit(int id, CategoryEditViewModel model)
         {
             var category = _categoryData.Get(id);
@@ -64,17 +64,29 @@ namespace Exercise4.Controllers
             return View(category);
         }
 
-        [HttpDelete("[controller]/Delete")]
         public IActionResult Delete(int id)
         {
-            var category = _categoryData.Get(id);
-            if (category == null)
+            var model = _categoryData.Get(id);
+            if (model == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
-            _categoryData.Remove(category);
-            _categoryData.Commit();
-            return new NoContentResult();
+            return View(model);
         }
+
+        [HttpPostAttribute, ActionNameAttribute("Delete")]
+        [ValidateAntiForgeryTokenAttribute]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var model = _categoryData.Get(id);
+            if (model == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            _categoryData.Remove(model);
+            _categoryData.Commit();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
