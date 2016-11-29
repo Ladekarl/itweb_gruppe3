@@ -1,0 +1,69 @@
+@model IEnumerable<Component>
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="col-md-8 col-md-offset-4">
+    <form asp-controller="Search" asp-action="Index" method="post" id="searchForm" class="form-horizontal" role="form">
+        <div class="form-group">
+            <label class="col-md-2 control-label">Component Number</label>
+            <div class="col-md-10">
+                <input placeholder="Component Number" type="number" name="componentNumber" class="form-control"/>
+            </div>
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default">Search</button>
+            </div>
+        </div>
+    </form>
+    @if (Model != null)
+    {
+        if (Model.Any())
+        {
+            <div class="col-md-offset-2 col-md-10">
+                <h3 class="text-success">Found</h3>
+            </div>
+            <div class="col-md-12">
+                @foreach (var component in Model)
+                {
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Number: </label>
+                        @component.ComponentNumber
+                    </div>
+                    if (component.SerialNo != null)
+                    {
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Serial Number: </label>
+                            @component.SerialNo
+                        </div>
+                    }
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Status: </label>
+                        @component.Status
+                    </div>
+                    if (component.UserComment != null)
+                    {
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">User Comment: </label>
+                            @component.UserComment
+                        </div>
+                    }
+                    if (component.AdminComment != null)
+                    {
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">AdminComment: </label>
+                            @component.AdminComment
+                        </div>
+                    }
+                }
+            </div>
+        }
+        else
+        {
+            <div class="col-md-offset-2 col-md-10">
+                <h3 class="text-danger">Not Found</h3>
+            </div>
+        }
+    }
+</div>
