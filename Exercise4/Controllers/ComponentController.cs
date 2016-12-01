@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Exercise4.Models;
 using Exercise4.Services;
 using Exercise4.ViewModels;
@@ -13,35 +11,57 @@ namespace Exercise4.Controllers
     public class ComponentController : Controller
     {
         private readonly IComponentService _componentService;
-        private IComponentTypeService _componentTypeService;
+        private readonly IComponentTypeData _componentTypeData;
 
-        public ComponentController(IComponentService componentService, IComponentTypeService componentTypeService)
+        public ComponentController(IComponentService componentService, IComponentTypeData componentTypeData)
         {
             _componentService = componentService;
-            _componentTypeService = componentTypeService;
+            _componentTypeData = componentTypeData;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
             var components = _componentService.GetAll();
-            return View(components);
-        }
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            var componentTypes = _componentTypeService.GetAll().Select(x => new SelectListItem
+            var componentTypes = _componentTypeData.GetAll().Select(x => new SelectListItem
             {
                 Value = x.ComponentTypeId.ToString(),
                 Text = x.ComponentName
             });
 
-            return View(new ComponentViewModel {ComponentTypes = componentTypes});
+            var selectListItems = componentTypes as IList<SelectListItem> ?? componentTypes.ToList();
+
+            selectListItems.Add(new SelectListItem
+            {
+                Text = "All",
+                Value = 0.ToString(),
+                Selected = true
+            });
+
+            var cwm = new ComponentViewModel
+            {
+                Components = components.ToList(),
+                ComponentTypes = selectListItems
+            };
+
+            return View(cwm);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var componentTypes = _componentTypeData.GetAll().Select(x => new SelectListItem
+            {
+                Value = x.ComponentTypeId.ToString(),
+                Text = x.ComponentName
+            });
+
+            return View(new ComponentEditViewModel {ComponentTypes = componentTypes});
         }
 
         [HttpPost]
-        public IActionResult Create([FromForm] ComponentViewModel componentViewModel)
+        public IActionResult Create([FromForm] ComponentEditViewModel componentViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -65,21 +85,38 @@ namespace Exercise4.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public IActionResult Edit([FromRoute] int id)
         {
             var component = _componentService.Get(id);
-            return View(component);
+
+            var componentTypes = _componentTypeData.GetAll().Select(x => new SelectListItem
+            {
+                Value = x.ComponentTypeId.ToString(),
+                Text = x.ComponentName
+            });
+
+            var cvm = new ComponentEditViewModel
+            {
+                ComponentNumber = component.ComponentNumber,
+                Status = component.Status,
+                AdminComment = component.AdminComment,
+                SerialNo = component.SerialNo,
+                UserComment = component.UserComment,
+                ComponentTypes = componentTypes
+            };
+
+            return View(cvm);
         }
 
         [HttpPost]
-        public IActionResult Edit([FromForm] Component c)
+        public IActionResult Edit([FromRoute] int id, [FromForm] ComponentEditViewModel c)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var component = _componentService.Get(c.ComponentId);
+            var component = _componentService.Get(id);
 
             component.ComponentNumber = c.ComponentNumber;
             component.AdminComment = c.AdminComment;
@@ -94,8 +131,8 @@ namespace Exercise4.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
-        public IActionResult Delete(int id)
+        [HttpGet]
+        public IActionResult Delete([FromRoute] int id)
         {
             var component = _componentService.Get(id);
 
@@ -107,7 +144,45 @@ namespace Exercise4.Controllers
             _componentService.Remove(component);
             _componentService.Commit();
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Filter([FromQuery] int componentTypeId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            if (componentTypeId == 0)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var components = _componentService.GetAll().Where(c => c.ComponentTypeId == componentTypeId);
+
+            var componentTypes = _componentTypeData.GetAll().Select(x => new SelectListItem
+            {
+                Value = x.ComponentTypeId.ToString(),
+                Text = x.ComponentName,
+                Selected = x.ComponentTypeId == componentTypeId
+            });
+
+            var selectListItems = componentTypes as IList<SelectListItem> ?? componentTypes.ToList();
+
+            selectListItems.Add(new SelectListItem
+            {
+                Text = "All",
+                Value = 0.ToString()
+            });
+
+            var cwm = new ComponentViewModel
+            {
+                Components = components.ToList(),
+                ComponentTypes = selectListItems,
+            };
+
+            return View(nameof(Index), cwm);
         }
     }
 }
