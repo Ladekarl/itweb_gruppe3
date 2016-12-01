@@ -20,13 +20,13 @@ namespace Exercise4.Controllers
             return View(model);
         }
 
-        [HttpGet("[controller]/Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost("[controller]/Create")]
+        [HttpPostAttribute]
+        [ValidateAntiForgeryTokenAttribute]
         public IActionResult Create(CategoryEditViewModel model)
         {
             if (ModelState.IsValid)
@@ -39,5 +39,54 @@ namespace Exercise4.Controllers
             }
             return View();
         }
+
+        public IActionResult Edit(int id)
+        {
+            var model = _categoryData.Get(id);
+            if (model == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
+
+        [HttpPostAttribute]
+        [ValidateAntiForgeryTokenAttribute]
+        public IActionResult Edit(int id, CategoryEditViewModel model)
+        {
+            var category = _categoryData.Get(id);
+            if (ModelState.IsValid)
+            {
+                category.Name = model.Name;
+                _categoryData.Commit();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(category);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var model = _categoryData.Get(id);
+            if (model == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
+
+        [HttpPostAttribute, ActionNameAttribute("Delete")]
+        [ValidateAntiForgeryTokenAttribute]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var model = _categoryData.Get(id);
+            if (model == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            _categoryData.Remove(model);
+            _categoryData.Commit();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

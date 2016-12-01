@@ -44,7 +44,11 @@ namespace Exercise4
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+
             services.AddScoped<IComponentTypeData, ComponentTypeData>();
+            
+            services.AddScoped<ICategoryData, CategoryData>();
+            services.AddScoped<IComponentService, ComponentService>();
 
             services.AddScoped<ICategoryData, CategoryData>();
             
