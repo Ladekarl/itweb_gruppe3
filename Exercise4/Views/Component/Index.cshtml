@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Exercise4.ViewModels.ComponentViewModel>
+
+@{
+    ViewBag.Title = "Components";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<a asp-action="Create" class="btn btn-primary">Create Component</a>
+
+<ul class="list-group">
+    @foreach (var component in Model)
+    {
+        <li class="list-group-item">
+            @component.ComponentNumber
+        </li>
+    }
+</ul>

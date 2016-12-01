@@ -1,5 +1,4 @@
-@using System.Collections.Generic;
-@Model Exercise4.ViewModels.ComponentTypeViewModel
+@model Exercise4.ViewModels.ComponentTypeViewModel
 @{
     ViewData["Title"] = "List of components types";
 }
@@ -9,18 +8,16 @@
 </div>
 <table class="table table-bordered">
     <thead>
-        <tr>
-            <th class="col-md2">Name </th>
-        </tr>
+    <tr>
+        <th class="col-md2">Name </th>
+    </tr>
     </thead>
     <tbody>
-        @foreach(var componentType in Model.Types)
-        {
+    @foreach (var componentType in Model.Types)
+    {
         <tr>
-
             <td>@componentType.ComponentName</td>
-            
         </tr>
-        }
+    }
     </tbody>
 </table>

@@ -7,7 +7,7 @@ namespace Exercise4.Services
     public interface IComponentService
     {
         IEnumerable<Component> GetAll();
-        Component Get(int id);
+        Component Get(long id);
         Component Add(Component newCategory);
         void Remove(Component component);
         void Commit();
@@ -32,7 +32,7 @@ namespace Exercise4.Services
             _context.SaveChanges();
         }
 
-        public Component Get(int id)
+        public Component Get(long id)
         {
             return _context.Components.Find(id);
         }
