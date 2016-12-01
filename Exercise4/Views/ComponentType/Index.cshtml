@@ -6,6 +6,23 @@
 <div>
     <a class="btn btn-primary" asp-action="Create">Create</a>
 </div>
+
+<form asp-controller="ComponentType" asp-action="Filter" method="get" class="form-horizontal" role="form">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="componentTypeId" class="col-md-2 control-label">Filter by category</label>
+            <div class="col-md-10">
+                <select name="categoryId" id="categoryId" class="form-control" asp-items="@Model.Categories"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input class="btn btn-defaul" type="submit" value="Filter" />
+            </div>
+        </div>
+    </div>
+</form>
+
 <table class="table table-bordered">
     <thead>
     <tr>
