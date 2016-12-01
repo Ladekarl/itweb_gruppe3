@@ -1,5 +1,6 @@
 using System.Collections.Generic;
-
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 namespace Exercise4.Models
 {
     public class ComponentType
@@ -10,7 +11,10 @@ namespace Exercise4.Models
             CategoryToComponentTypes = new List<CategoryToComponentType>();
         }
         public long ComponentTypeId { get; set; }
+        [DisplayName("Name")]
+        [Required(ErrorMessage = "Component name is required")]
         public string ComponentName { get; set; }
+        [DisplayName("Information about the component")]
         public string ComponentInfo { get; set; }
         public string Location { get; set; }
         public ComponentTypeStatus Status { get; set; }

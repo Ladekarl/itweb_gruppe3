@@ -44,9 +44,10 @@ namespace Exercise4
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
-            
-            services.AddScoped<ICategoryData, CategoryData>();
+            services.AddScoped<IComponentTypeData, ComponentTypeData>();
 
+            services.AddScoped<ICategoryData, CategoryData>();
+            
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();

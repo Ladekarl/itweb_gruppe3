@@ -11,4 +11,5 @@ namespace Exercise4.Models
         Lost,
         NeverReturned
     }
+    
 }
