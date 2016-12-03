@@ -8,7 +8,7 @@ namespace Exercise4.Models
         public ComponentType()
         {
             Components = new List<Component>();
-            Categories = new List<Category>();
+            CategoryToComponentType = new List<CategoryToComponentType>();
         }
         public long ComponentTypeId { get; set; }
         [DisplayName("Name")]
@@ -25,6 +25,6 @@ namespace Exercise4.Models
         public string AdminComment { get; set; }
         public virtual ESImage Image { get; set; }
         public ICollection<Component> Components { get; protected set; }
-        public ICollection<Category> Categories { get; protected set; }
+        public ICollection<CategoryToComponentType> CategoryToComponentType { get; set; }
     }
 }

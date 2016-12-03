@@ -1,5 +1,6 @@
 using Exercise4.Models;
-
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Exercise4.ViewModels
 {
     public class ComponentTypeEditViewModel
@@ -12,5 +13,7 @@ namespace Exercise4.ViewModels
         public string Manufacturer{ get; set; }
         public string WikiLink{ get; set; }
         public string AdminComment{ get; set; }
+        public IEnumerable<SelectListItem> Categories{ get; set; }
+        public IEnumerable<long> CategorieIds{ get; set; }
     }
 }

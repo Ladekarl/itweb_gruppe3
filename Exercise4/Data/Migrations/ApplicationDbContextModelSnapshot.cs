@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Exercise4.Data;
-using Exercise4.Models;
 
 namespace Exercise4.Migrations
 {
@@ -28,7 +27,7 @@ namespace Exercise4.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256);
+                        .HasAnnotation("MaxLength", 256);
 
                     b.Property<bool>("EmailConfirmed");
 
@@ -37,10 +36,10 @@ namespace Exercise4.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
+                        .HasAnnotation("MaxLength", 256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
+                        .HasAnnotation("MaxLength", 256);
 
                     b.Property<string>("PasswordHash");
 
@@ -53,7 +52,7 @@ namespace Exercise4.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256);
+                        .HasAnnotation("MaxLength", 256);
 
                     b.HasKey("Id");
 
@@ -72,15 +71,24 @@ namespace Exercise4.Migrations
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<long?>("ComponentTypeId");
-
                     b.Property<string>("Name");
 
                     b.HasKey("CategoryId");
 
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Exercise4.Models.CategoryToComponentType", b =>
+                {
+                    b.Property<int>("CategoryId");
+
+                    b.Property<long>("ComponentTypeId");
+
+                    b.HasKey("CategoryId", "ComponentTypeId");
+
                     b.HasIndex("ComponentTypeId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("CategoryToComponentType");
                 });
 
             modelBuilder.Entity("Exercise4.Models.Component", b =>
@@ -150,7 +158,7 @@ namespace Exercise4.Migrations
                     b.Property<byte[]>("ImageData");
 
                     b.Property<string>("ImageMimeType")
-                        .HasMaxLength(128);
+                        .HasAnnotation("MaxLength", 128);
 
                     b.Property<byte[]>("Thumbnail");
 
@@ -168,10 +176,10 @@ namespace Exercise4.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Name")
-                        .HasMaxLength(256);
+                        .HasAnnotation("MaxLength", 256);
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
+                        .HasAnnotation("MaxLength", 256);
 
                     b.HasKey("Id");
 
@@ -266,16 +274,22 @@ namespace Exercise4.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Exercise4.Models.Category", b =>
+            modelBuilder.Entity("Exercise4.Models.CategoryToComponentType", b =>
                 {
-                    b.HasOne("Exercise4.Models.ComponentType")
-                        .WithMany("Categories")
-                        .HasForeignKey("ComponentTypeId");
+                    b.HasOne("Exercise4.Models.Category", "Category")
+                        .WithMany("CategoryToComponentType")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Exercise4.Models.ComponentType", "ComponentType")
+                        .WithMany("CategoryToComponentType")
+                        .HasForeignKey("ComponentTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Exercise4.Models.Component", b =>
                 {
-                    b.HasOne("Exercise4.Models.ComponentType")
+                    b.HasOne("Exercise4.Models.ComponentType", "ComponentType")
                         .WithMany("Components")
                         .HasForeignKey("ComponentTypeId")
                         .OnDelete(DeleteBehavior.Cascade);

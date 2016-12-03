@@ -2,10 +2,9 @@ using Exercise4.Models;
 using Exercise4.Services;
 using Exercise4.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
+using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Exercise4.Controllers
@@ -50,27 +49,42 @@ namespace Exercise4.Controllers
         [HttpGet("[controller]/Create")]
         public IActionResult Create()
         {
-            return View();
+            var categories = _categoryData.GetAll().Select(x => new SelectListItem
+            {    
+                Value = x.CategoryId.ToString(),
+                Text = x.Name
+            });
+
+            var selectListItems = categories as IList<SelectListItem> ?? categories.ToList();
+
+            var model = new ComponentTypeEditViewModel();
+            model.Categories = selectListItems;
+            return View(model);
         }
         [HttpPost("[controller]/Create")]
         public IActionResult Create(ComponentTypeEditViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var newComponentType = new ComponentType();
-                newComponentType.ComponentName = model.ComponentName;
-                newComponentType.ComponentInfo = model.ComponentInfo;
-                newComponentType.Status = model.Status;
-                newComponentType.Datasheet = model.DataSheet;
-                newComponentType.ImageUrl = model.ImageUrl;
-                newComponentType.Manufacturer = model.Manufacturer;
-                newComponentType.WikiLink = model.Manufacturer;
-                newComponentType.AdminComment = model.AdminComment;
-                _componentDataType.Add(newComponentType);
-                _componentDataType.Commit();
-                return RedirectToAction(nameof(Index));
+                return BadRequest();
             }
-            return View();
+            var newComponentType = new ComponentType()
+            {
+                ComponentName = model.ComponentName,
+                ComponentInfo = model.ComponentInfo,
+                Status = model.Status,
+                Datasheet = model.DataSheet,
+                ImageUrl = model.ImageUrl,
+                Manufacturer = model.Manufacturer,
+                WikiLink = model.Manufacturer,
+                AdminComment = model.AdminComment,
+            };
+            model.CategorieIds.ToList().ForEach(x =>
+                newComponentType.CategoryToComponentType.Add(new CategoryToComponentType() { CategoryId = (int) x })
+            );
+            _componentDataType.Add(newComponentType);
+            _componentDataType.Commit();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Filter([FromQuery] int categoryId)
@@ -85,9 +99,7 @@ namespace Exercise4.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            var componentTypes = _componentDataType.GetAll().Where(
-                c => c.Categories.FirstOrDefault(cat => cat.CategoryId == categoryId) != null);
-
+            var componentTypes = _componentDataType.GetByCategoryId(categoryId).ToList();
             var categories = _categoryData.GetAll().Select(x => new SelectListItem
             {
                 Value = x.CategoryId.ToString(),
