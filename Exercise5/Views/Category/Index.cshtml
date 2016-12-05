@@ -1,4 +1,6 @@
+@using Exercise5.Models
 @using Exercise5.ViewModels
+@inject SignInManager<ApplicationUser> SignInManager
 @model Exercise5.ViewModels.CategoryViewModel
 
 @{
@@ -8,24 +10,38 @@
 
 <table class="table table-hover">
     <thead>
-        <tr>
-            <th class="col-md-8">Name</th>
+    <tr>
+        <th class="col-md-8">Name</th>
+        @if (SignInManager.IsSignedIn(User))
+        {
             <th class="col-md-2">Edit</th>
             <th class="col-md-2">Delete</th>
-        </tr>
+        }
+    </tr>
     </thead>
     <tbody>
-        @foreach (var category in Model.Categories)
-        {
-            <tr>
-                <td>@category.Name</td>
-                <td><a class="btn btn-primary" asp-action="Edit" asp-route-id="@category.CategoryId"><span class="glyphicon glyphicon-pencil"/></a></td>
-                <td><a class="btn btn-primary" asp-action="Delete" asp-route-id="@category.CategoryId"><span class="glyphicon glyphicon-remove"/></a></td>
-            </tr>
-        }
+    @foreach (var category in Model.Categories)
+    {
+        <tr>
+            <td>@category.Name</td>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <td>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@category.CategoryId">
+                        <span class="glyphicon glyphicon-pencil"/></a>
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Delete" asp-route-id="@category.CategoryId">
+                        <span class="glyphicon glyphicon-remove"/></a>
+                </td>
+            }
+        </tr>
+    }
     </tbody>
 </table>
-
-<div>
-    <a class="btn btn-primary" asp-action="Create">Create</a>
-</div> 
+@if (SignInManager.IsSignedIn(User))
+{
+    <div>
+        <a class="btn btn-primary" asp-action="Create">Create</a>
+    </div>
+}

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Exercise5.Data;
 using Exercise5.Models;
 
@@ -6,7 +7,7 @@ namespace Exercise5.Services
 {
     public interface ICategoryData
     {
-        IEnumerable<Category> GetAll();
+        IQueryable<Category> GetAll();
         Category Get(int id);
         Category Add(Category newCategory);
 
@@ -38,7 +39,7 @@ namespace Exercise5.Services
             return _context.Categories.Find(id);
         }
 
-        public IEnumerable<Category> GetAll()
+        public IQueryable<Category> GetAll()
         {
             return _context.Categories;
         }
