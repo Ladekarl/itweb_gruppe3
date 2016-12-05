@@ -1,0 +1,61 @@
+﻿@using Exercise5.Models
+@using Exercise5.ViewModels
+@model Exercise5.ViewModels.ComponentEditViewModel
+
+@{
+    ViewBag.Title = "Edit Component";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<form asp-controller="Component" asp-action="Edit" method="post" id="editComponentForm" class="form-horizontal" role="form">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label asp-for="ComponentNumber" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="ComponentNumber" class="form-control" />
+                <span asp-validation-for="ComponentNumber"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SerialNo" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SerialNo" class="form-control" />
+                <span asp-validation-for="SerialNo"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Status" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="Status" class="form-control" asp-items="@Html.GetEnumSelectList(typeof(ComponentStatus))"></select>
+                <span asp-validation-for="Status"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ComponentTypeId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ComponentTypeId" class="form-control" asp-items="@Model.ComponentTypes"></select>
+                <span asp-validation-for="ComponentTypeId"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserComment" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="UserComment" class="form-control"></textarea>
+                <span asp-validation-for="UserComment"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="AdminComment" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <textarea asp-for="AdminComment" class="form-control"></textarea>
+                <span asp-validation-for="AdminComment"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input class="btn btn-primary" type="submit" value="Edit" />
+            </div>
+        </div>
+    </div>
+</form>

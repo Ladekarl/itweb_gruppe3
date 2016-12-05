@@ -1,0 +1,77 @@
+﻿@using Exercise5.ViewModels
+@model Exercise5.ViewModels.ComponentViewModel
+
+@{
+    ViewBag.Title = "Components";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<div class="form-group">
+    <a asp-action="Create" class="btn btn-primary">Create Component</a>
+</div>
+
+<form asp-controller="Component" asp-action="Filter" method="get" class="form-horizontal" role="form">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="componentTypeId" class="col-md-2 control-label">Filter component types</label>
+            <div class="col-md-10">
+                <select name="componentTypeId" id="componentTypeId" class="form-control" asp-items="@Model.ComponentTypes">
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input class="btn btn-defaul" type="submit" value="Filter"/>
+            </div>
+        </div>
+    </div>
+</form>
+
+@if (Model.Components.Any())
+{
+    <div class="col-md-12 list-group">
+        @foreach (var component in Model.Components)
+        {
+            <div class="list-group-item">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Number: </label>
+                    @component.ComponentNumber
+                </div>
+                @if (component.SerialNo != null)
+                {
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Serial Number: </label>
+                        @component.SerialNo
+                    </div>
+                }
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Status: </label>
+                    @component.Status
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Component Type: </label>
+                    @component.ComponentType.ComponentName
+                </div>
+                @if (component.UserComment != null)
+                {
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">User Comment: </label>
+                        @component.UserComment
+                    </div>
+                }
+                @if (component.AdminComment != null)
+                {
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">AdminComment: </label>
+                        @component.AdminComment
+                    </div>
+                }
+                <div class="form-group">
+                    <a class="btn btn-default" asp-controller="Component" asp-action="Edit" asp-route-id="@component.ComponentId"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-danger" asp-controller="Component" asp-action="Delete" asp-route-id="@component.ComponentId"><span class="glyphicon glyphicon-remove"></span></a>
+                </div>
+            </div>
+        }
+    </div>
+}
