@@ -3,11 +3,13 @@ using System.Linq;
 using Exercise5.Models;
 using Exercise5.Services;
 using Exercise5.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Exercise5.Controllers
 {
+    [Authorize]
     public class ComponentTypeController : Controller
     {
         private readonly IComponentTypeData _componentDataType;
@@ -19,17 +21,16 @@ namespace Exercise5.Controllers
             _categoryData = categoryData;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var categories = _categoryData.GetAll().Select(x => new SelectListItem
             {
                 Value = x.CategoryId.ToString(),
                 Text = x.Name
-            });
+            }).ToList();
 
-            var selectListItems = categories as IList<SelectListItem> ?? categories.ToList();
-
-            selectListItems.Add(new SelectListItem
+            categories.Add(new SelectListItem
             {
                 Text = "All",
                 Value = 0.ToString(),
@@ -38,8 +39,8 @@ namespace Exercise5.Controllers
 
             var model = new ComponentTypeViewModel
             {
-                Types = _componentDataType.GetAll(),
-                Categories = selectListItems
+                Types = _componentDataType.GetAll().ToList(),
+                Categories = categories
             };
 
             return View(model);
@@ -52,12 +53,11 @@ namespace Exercise5.Controllers
             {    
                 Value = x.CategoryId.ToString(),
                 Text = x.Name
-            });
+            }).ToList();
 
-            var selectListItems = categories as IList<SelectListItem> ?? categories.ToList();
 
             var model = new ComponentTypeEditViewModel();
-            model.Categories = selectListItems;
+            model.Categories = categories;
             return View(model);
         }
         [HttpPost("[controller]/Create")]
@@ -86,6 +86,7 @@ namespace Exercise5.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [AllowAnonymous]
         public IActionResult Filter([FromQuery] int categoryId)
         {
             if (!ModelState.IsValid)
@@ -104,11 +105,10 @@ namespace Exercise5.Controllers
                 Value = x.CategoryId.ToString(),
                 Text = x.Name,
                 Selected = x.CategoryId == categoryId
-            });
+            }).ToList();
 
-            var selectListItems = categories as IList<SelectListItem> ?? categories.ToList();
 
-            selectListItems.Add(new SelectListItem
+            categories.Add(new SelectListItem
             {
                 Text = "All",
                 Value = 0.ToString()
@@ -116,8 +116,8 @@ namespace Exercise5.Controllers
 
             var ctvm = new ComponentTypeViewModel
             {
-                Types = componentTypes.ToList(),
-                Categories = selectListItems
+                Types = componentTypes,
+                Categories = categories
             };
             return View(nameof(Index), ctvm);
         }

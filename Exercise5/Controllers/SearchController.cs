@@ -6,7 +6,7 @@ namespace Exercise5.Controllers
 {
     public class SearchController : Controller
     {
-        private IComponentService _componentService;
+        private readonly IComponentService _componentService;
         public SearchController(IComponentService componentService)
         {
             _componentService = componentService;
@@ -21,7 +21,7 @@ namespace Exercise5.Controllers
         [HttpPost]
         public IActionResult Index([FromForm] int componentNumber)
         {
-            return View("Index", _componentService.GetAll().Where(c => c.ComponentNumber.Equals(componentNumber)));
+            return View("Index", _componentService.GetAll().Where(c => c.ComponentNumber.Equals(componentNumber)).ToList());
         }
     }
 }

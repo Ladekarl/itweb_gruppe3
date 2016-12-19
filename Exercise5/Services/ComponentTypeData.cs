@@ -8,7 +8,7 @@ namespace Exercise5.Services
     public interface IComponentTypeData 
     {
         ComponentType GetById(int id);
-        IEnumerable<ComponentType> GetAll();
+        IQueryable<ComponentType> GetAll();
         ComponentType Add(ComponentType type);
         void Commit();
         IEnumerable<ComponentType> GetByCategoryId(int categoryId);
@@ -35,7 +35,7 @@ namespace Exercise5.Services
                 .SelectMany(c => c.CategoryToComponentType.Select(cc => cc.ComponentType))
                 .ToList();
         }
-        public IEnumerable<ComponentType> GetAll()
+        public IQueryable<ComponentType> GetAll()
         {
             return _context.ComponentTypes;
         }

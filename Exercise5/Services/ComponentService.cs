@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Exercise5.Data;
 using Exercise5.Models;
 
@@ -6,7 +7,7 @@ namespace Exercise5.Services
 {
     public interface IComponentService
     {
-        IEnumerable<Component> GetAll();
+        IQueryable<Component> GetAll();
         Component Get(long id);
         Component Add(Component newCategory);
         void Remove(Component component);
@@ -37,7 +38,7 @@ namespace Exercise5.Services
             return _context.Components.Find(id);
         }
 
-        public IEnumerable<Component> GetAll()
+        public IQueryable<Component> GetAll()
         {
             return _context.Components;
         }

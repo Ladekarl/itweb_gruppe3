@@ -14,7 +14,7 @@ namespace Exercise5
                 .Build();
 
             var host = new WebHostBuilder()
-                .UseUrls("http://*:5000")
+                .UseUrls("http://*:5001")
                 .UseConfiguration(config)
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())

@@ -1,6 +1,7 @@
 using Exercise5.Data;
 using Exercise5.Models;
 using Exercise5.Services;
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -70,8 +71,15 @@ namespace Exercise5
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = context =>
+                {
+                    context.Context.Response.Headers["Cache-Control"] = "private, max-age=43200";
 
-            app.UseStaticFiles();
+                    context.Context.Response.Headers["Expires"] = DateTime.UtcNow.AddDays(30).ToString("R");
+                }
+            });
 
             app.UseIdentity();
 

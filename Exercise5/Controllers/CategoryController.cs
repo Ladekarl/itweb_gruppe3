@@ -1,3 +1,4 @@
+using System.Linq;
 using Exercise5.Models;
 using Exercise5.Services;
 using Exercise5.ViewModels;
@@ -15,10 +16,11 @@ namespace Exercise5.Controllers
             _categoryData = categoryData;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var model = new CategoryViewModel();
-            model.Categories = _categoryData.GetAll();
+            model.Categories = _categoryData.GetAll().ToList();
             return View(model);
         }
 

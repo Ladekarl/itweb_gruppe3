@@ -6,6 +6,7 @@ using Exercise5.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Exercise5.Controllers
 {
@@ -23,15 +24,14 @@ namespace Exercise5.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var components = _componentService.GetAll();
+            var components = _componentService.GetAll().Include(c => c.ComponentType).ToList();
 
-            var componentTypes = _componentTypeData.GetAll().Select(x => new SelectListItem
+            var selectListItems = _componentTypeData.GetAll().Select(x => new SelectListItem
             {
                 Value = x.ComponentTypeId.ToString(),
                 Text = x.ComponentName
-            });
+            }).ToList();
 
-            var selectListItems = componentTypes as IList<SelectListItem> ?? componentTypes.ToList();
 
             selectListItems.Add(new SelectListItem
             {
@@ -42,7 +42,7 @@ namespace Exercise5.Controllers
 
             var cwm = new ComponentViewModel
             {
-                Components = components.ToList(),
+                Components = components,
                 ComponentTypes = selectListItems
             };
 
@@ -56,7 +56,7 @@ namespace Exercise5.Controllers
             {
                 Value = x.ComponentTypeId.ToString(),
                 Text = x.ComponentName
-            });
+            }).ToList();
 
             return View(new ComponentEditViewModel {ComponentTypes = componentTypes});
         }
@@ -94,7 +94,7 @@ namespace Exercise5.Controllers
             {
                 Value = x.ComponentTypeId.ToString(),
                 Text = x.ComponentName
-            });
+            }).ToList();
 
             var cvm = new ComponentEditViewModel
             {
@@ -160,18 +160,16 @@ namespace Exercise5.Controllers
                 return RedirectToAction("Index");
             }
 
-            var components = _componentService.GetAll().Where(c => c.ComponentTypeId == componentTypeId);
+            var components = _componentService.GetAll().Where(c => c.ComponentTypeId == componentTypeId).Include(c => c.ComponentType).ToList();
 
             var componentTypes = _componentTypeData.GetAll().Select(x => new SelectListItem
             {
                 Value = x.ComponentTypeId.ToString(),
                 Text = x.ComponentName,
                 Selected = x.ComponentTypeId == componentTypeId
-            });
+            }).ToList();
 
-            var selectListItems = componentTypes as IList<SelectListItem> ?? componentTypes.ToList();
-
-            selectListItems.Add(new SelectListItem
+            componentTypes.Add(new SelectListItem
             {
                 Text = "All",
                 Value = 0.ToString()
@@ -179,8 +177,8 @@ namespace Exercise5.Controllers
 
             var cwm = new ComponentViewModel
             {
-                Components = components.ToList(),
-                ComponentTypes = selectListItems,
+                Components = components,
+                ComponentTypes = componentTypes,
             };
 
             return View(nameof(Index), cwm);
