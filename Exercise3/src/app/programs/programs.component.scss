@@ -1,13 +1,31 @@
 .verticalspace {
-    height: 3em;
+    min-height: 3em;
 }
 
 .table tbody > tr > td.vertalign {
     vertical-align: middle;
 }
 
+$h1Color: #1a75ff;
+
 h1 {
-  color: burlywood;
+  color: $h1Color;
 }
 
-body
+$font-style: bold;
+
+@mixin awesome-font-style {
+    font-weight: $font-style;
+}
+
+td {
+    @include awesome-font-style();
+}
+
+@function awesome-calculation($some-number, $another-number){
+  @return $some-number + $another-number
+}
+
+th {
+    font-size: awesome-calculation(10px, 10px)
+}
